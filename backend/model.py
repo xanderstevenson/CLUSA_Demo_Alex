@@ -38,4 +38,4 @@ class DemoQuestion(BaseModel):
     answer: str
     prompt: Optional[str]
     weight: Optional[int]
-    data: bytes
+    filename: str

@@ -1,38 +1,46 @@
-import React, { Component } from 'react';
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 
-class App extends Component {
-  state={
-      profileImg:'https://pubhub.devnetcloud.com/media/devnetcreate-challenge-2021/site/images/devvie-on-homepage.png'
-  }
-  imageHandler = (e) => {
-    const reader = new FileReader();
-    reader.onload = () =>{
-      if(reader.readyState === 2){
-        this.setState({profileImg: reader.result})
-      }
-    }
-    reader.readAsDataURL(e.target.files[0])
-  };
-	render() {
-    const { profileImg} = this.state
-		return (
-			<div className="page">
-				<div className="container">
-					<h1 className="heading">CLUS Demo Question</h1>
-					<div className="img-holder">
-						<img src={profileImg} alt="" id="img" className="img" />
-					</div>
-					<input type="file" accept="image/*" name="image-upload" id="input" onChange={this.imageHandler} />
-					<div className="label">
-          <label className="image-upload" htmlFor="input">
-						Select Photo
-					</label>
-          </div>
-				</div>
-			</div>
-		);
+// Welcome screen before displaying the first question
+const url = 'https://pubhub.devnetcloud.com/media/devnetcreate-challenge-2021/site/images/devvie-on-homepage.png'
+// Index to the current question
+let index = 0
+
+const App = () => {
+	const [question,setImage] = useState(url)
+	const [questionList,setQuestionList] = useState('')
+
+	useEffect( () => {
+		if( questionList === '' ) {
+			axios.get('http://localhost:8000/api')
+			.then (response => {
+				setQuestionList(response.data)
+			})
+		}
+	}, []);
+
+	const imageHandler = (e) => {
+		if (index < questionList.length) {
+			setImage(questionList[index].filename)
+			index = index + 1
+		} else {
+			alert('Congratulation, you have completed the challenge!')
+		}
 	}
+
+	return (
+		<div className="page">
+			<div className="container">
+				<h1 className="heading">CLUS Demo Question</h1>
+				<div className="img-holder">
+					<img src={question} alt="" id="img" className="img" />
+				</div>
+				<button className="image-upload" onClick={imageHandler}>Next question</button>
+			</div>
+		</div>
+	)
 }
 
 export default App;

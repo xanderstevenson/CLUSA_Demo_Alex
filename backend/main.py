@@ -1,6 +1,9 @@
 from fastapi import FastAPI, HTTPException
-from model import DemoQuestion
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from model import DemoQuestion
+import os
 
 from database import (
     fetch_one_question,
@@ -14,7 +17,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 
 origins = [
-    "http://localhost:3000",
+    "http://localhost:3000"
 ]
 
 app.add_middleware(
@@ -24,6 +27,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Added to create path to static files for all question images
+app.mount("/static", StaticFiles(directory="questions"),name="static")
 
 @app.get("/")
 async def read_root():
