@@ -4,9 +4,11 @@ import axios from 'axios';
 import './App.css';
 
 // Welcome screen before displaying the first question
-const url = 'https://pubhub.devnetcloud.com/media/devnetcreate-challenge-2021/site/images/devvie-on-homepage.png'
+const url = 'https://github.com/xanderstevenson/CLUS_Demo/blob/master/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 let index = 0
+// Produce slide heading
+var headingWords = 'DevNet Formula Fun!'
 
 const App = () => {
 	const [question,setImage] = useState(url)
@@ -30,10 +32,15 @@ const App = () => {
 		}
 	}
 
+
+
+    var headingElement = <h1 className="heading">{headingWords}</h1>
+
+
 	return (
 		<div className="page">
 			<div className="container">
-				<h1 className="heading">CLUS Demo Question</h1>
+				{headingElement}
 				<div className="img-holder">
 					<img src={question} alt="" id="img" className="img" />
 				</div>
@@ -41,6 +48,16 @@ const App = () => {
 			</div>
 		</div>
 	)
+
 }
+
+
+
+
+
+
+
+
+
 
 export default App;

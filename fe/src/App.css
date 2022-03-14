@@ -17,7 +17,8 @@
   width: 800px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  
+  box-shadow: -10px 10px #711A75;
+  border: 1px gray solid;
 }
 
 .heading{
@@ -25,14 +26,13 @@
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 1rem;
   font-weight: bold;
-
 }
 
 .img-holder{
   margin: auto;
   width: 747px;
   height: 420px;
-  border: 3px black solid;
+  border: 1px gray solid;
   border-radius: 5px;
   margin-top: 1rem;
 }
