@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="{{ url_for('templates', path='styles.css') }}" rel="stylesheet">
+  <meta http-equiv="refresh" content="10">
+</head>
+<body>
+
+<div class="leaderboard">
+    <header>
+      <h1 class="">Formula Won</h1>
+      <img id="devvie" src="{{ url_for('media', path='/Devvie-checkered-flag.jpeg') }}" alt="">
+
+    </header>
+
+   
+
+    {{ data|safe }}
+</div>
+
+</body>
+</html>

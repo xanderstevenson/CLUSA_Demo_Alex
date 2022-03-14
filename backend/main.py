@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi import Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -28,12 +29,19 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+templates = Jinja2Templates(directory="templates")
+
+
 # Added to create path to static files for all question images
 app.mount("/static", StaticFiles(directory="questions"),name="static")
 
+app.mount("/templates", StaticFiles(directory="templates"),name="templates")
+
+app.mount("/media", StaticFiles(directory="media"),name="media")
+
 @app.get("/")
-async def read_root():
-    return {"Hello": "World"}
+async def root(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.get("/api")
 async def get__all_questions():
