@@ -61,3 +61,12 @@
   text-align: center;
   cursor: pointer;
 }
+
+#devnetIcon {
+  width: 150px;
+  clear: left;
+  margin-top: 10px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}

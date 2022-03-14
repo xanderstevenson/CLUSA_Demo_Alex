@@ -33,7 +33,7 @@ const App = () => {
 	}
 
 
-
+    // produce header element with cariable from above
     var headingElement = <h1 className="heading">{headingWords}</h1>
 
 
@@ -45,6 +45,8 @@ const App = () => {
 					<img src={question} alt="" id="img" className="img" />
 				</div>
 				<button className="image-upload" onClick={imageHandler}>Next question</button>
+				<br></br>
+				<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
 			</div>
 		</div>
 	)
