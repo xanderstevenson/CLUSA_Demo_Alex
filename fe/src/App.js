@@ -26,7 +26,7 @@ const App = () => {
 
 	useEffect( () => {
 		if( questionList === '' ) {
-			axios.get('http://localhost:8000/api')
+			axios.get('http://localhost:8000/questions')
 			.then (response => {
 				setQuestionList(response.data)
 			})
