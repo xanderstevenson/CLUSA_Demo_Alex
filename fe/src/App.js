@@ -12,7 +12,7 @@ import './App.css';
 
 
 // Welcome screen before displaying the first question
-const url = 'https://github.com/xanderstevenson/CLUS_Demo/blob/master/backend/media/Devvie-checkered-flag.jpeg?raw=true'
+const url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 let index = 0
 // Set the slide heading
@@ -141,17 +141,10 @@ const App = () => {
 					</Routes>
 				</Router>
 				<br></br>
-        		<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
+        		<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
 			</div>
 	  	</div>
 	)
-
-
-
-
-
-
-
 
 
 }
