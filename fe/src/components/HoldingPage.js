@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function HoldingPage() {
   const { username } = useParams();

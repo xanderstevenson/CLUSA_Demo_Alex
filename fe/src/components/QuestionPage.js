@@ -1,10 +1,14 @@
 import React from "react";
 
+
 export function QuestionPage() {
   return (
 
     <div>
-        {buttonElement}
+        {/* {buttonElement} */}
+        {/* <div className="img-holder">
+            <img src={question} alt="" id="img" className="img" />
+        </div> */}
     </div>
 
 

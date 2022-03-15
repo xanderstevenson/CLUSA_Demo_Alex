@@ -1,7 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
+import {
+	BrowserRouter as Router,
+	Routes,
+	Route,
+	Link
+  } from "react-router-dom";
+
 import axios from 'axios';
 import './App.css';
+
 
 // Welcome screen before displaying the first question
 const url = 'https://github.com/xanderstevenson/CLUS_Demo/blob/master/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -22,11 +30,16 @@ const App = () => {
 			.then (response => {
 				setQuestionList(response.data)
 			})
+			.catch(error => {
+				console.error("Error fetching quetions from database")
+			})
 		}
 	}, []);
 
 	const imageHandler = (e) => {
 		if (index < questionList.length) {
+			// change button text variable to be plugged into buttonElement below
+			buttonText = 'Next Question'
 			setImage(questionList[index].filename)
 			index = index + 1
 			// change heading variable to be plugged into headingElement below
@@ -44,30 +57,109 @@ const App = () => {
 	// button can be hid before starting the race
 	var buttonElement = <button className="image-upload" onClick={imageHandler}>{buttonText}</button>
 
+	var username = 'test_user'
+
+
+	
+
+	// 	<div className="page">
+	// 		<div className="container">
+	// 			{headingElement}
+	// 			<div className="img-holder">
+	// 				<img src={question} alt="" id="img" className="img" />
+	// 			</div>
+	// 			{buttonElement}
+	// 			<br></br>
+	// 			<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
+	// 		</div>
+	// 	</div>
+	// )
+
+
+
+	function LandingPage() {
+		return (
+		  <div>
+			<h1 class="titles">Landing Page!</h1>
+			<Link to="/register">To Register!</Link>
+		  </div>
+		);
+	  }
+
+	  function RegisterPage() {
+		return (
+		  <div>
+			<h1 class="titles">Register Page!</h1>
+			{/* <Link to="/profile/:username">To the Holding Page!</Link> */}
+			{/* hardcode username for testing */}
+			<Link to="/profile/andrew">To the Holding Page!</Link>
+		  </div>
+		);
+	  }
+
+	  function HoldingPage() {
+		return (
+		  <div>
+			<h1>Profile Page for {username}!</h1>
+			<Link to="/question">To the Question Page!</Link>
+		  </div>
+		);
+	  }
+
+
+	function QuestionPage() {
+		// url = 'https://pubhub.devnetcloud.com/media/clus19/site/images/devviebackpack-for-clus.png'
+		return (
+			
+		  <div>
+			  {buttonElement}
+			  {/* <div className="img-holder">
+				  <img src={question} alt="" id="img" className="img" />
+			  </div> */}
+		  </div>
+	  );
+	  }
+	
+
+
+
 
 	return (
+
 		<div className="page">
 			<div className="container">
 				{headingElement}
 				<div className="img-holder">
 					<img src={question} alt="" id="img" className="img" />
 				</div>
-				{buttonElement}
+				<Router>
+					<Routes>
+						<Route exact path="/" element={<LandingPage />} />
+						<Route exact path="/register" element={<RegisterPage />} />
+						<Route path="/profile/:username" element={<HoldingPage />} />
+						<Route path="/question" element={<QuestionPage />} />
+					</Routes>
+				</Router>
 				<br></br>
-				<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
+        		<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
 			</div>
-		</div>
+	  	</div>
 	)
+
+
+
+
+
+
+
+
 
 }
 
 
 
-
-
-
-
-
-
-
 export default App;
+
+
+
+
