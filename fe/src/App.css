@@ -17,7 +17,7 @@
   width: 800px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: -3px 3px 35px #711A75, 3px 3px 35px #711A75;
+  box-shadow: -2px 2px 25px #711A75, 2px 2px 25px #711A75;
   border: 1px gray solid;
 }
 
@@ -27,7 +27,7 @@
   margin-top: 1rem;
   font-weight: bold;
   color: white;
-  text-shadow: 2px 2px black;
+  text-shadow: 1px 1px black;
   font-size: 36px;
 }
 
@@ -60,13 +60,13 @@
 	height: 30px;
   color: white;
   border-radius: 10px;
-  background-color: rgb(27, 8, 244);
+  background-color: black;
   text-align: center;
   cursor: pointer;
 }
 
 #devnetIcon {
-  width: 147px;
+  width: 145px;
   clear: left;
   text-align: center;
   align-items: center;

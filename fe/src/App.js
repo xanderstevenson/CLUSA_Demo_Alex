@@ -7,8 +7,10 @@ import './App.css';
 const url = 'https://github.com/xanderstevenson/CLUS_Demo/blob/master/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 let index = 0
-// Produce slide heading
-var headingWords = 'DevNet Formula Fun!'
+// Set the slide heading
+var headingWords = 'Cisco Formula Fun!'
+// Set the button text
+var buttonText = 'Begin!'
 
 const App = () => {
 	const [question,setImage] = useState(url)
@@ -27,14 +29,20 @@ const App = () => {
 		if (index < questionList.length) {
 			setImage(questionList[index].filename)
 			index = index + 1
+			// change heading variable to be plugged into headingElement below
+			headingWords = 'Question #' + index
 		} else {
 			alert('Congratulation, you have completed the challenge!')
 		}
 	}
 
 
-    // produce header element with cariable from above
+    // produce header element with variable from above
     var headingElement = <p className="heading">{headingWords}</p>
+
+	// produce button text with variable from above
+	// button can be hid before starting the race
+	var buttonElement = <button className="image-upload" onClick={imageHandler}>{buttonText}</button>
 
 
 	return (
@@ -44,7 +52,7 @@ const App = () => {
 				<div className="img-holder">
 					<img src={question} alt="" id="img" className="img" />
 				</div>
-				<button className="image-upload" onClick={imageHandler}>Next question</button>
+				{buttonElement}
 				<br></br>
 				<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
 			</div>
