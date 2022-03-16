@@ -110,15 +110,27 @@ const App = () => {
 		  <div>
 			<h2>Welcome, {username}!</h2>
 			<h3>START YOUR ENGINES!</h3>
-			<button className="mainButton"><Link to="/start">Start!</Link></button>
+			<button className="mainButton"><Link to="/start-page">Start!</Link></button>
 		  </div>
 		  </center>
 		);
 	  }
 
 
-	function QuestionPage() {
-		// url = 'https://pubhub.devnetcloud.com/media/clus19/site/images/devviebackpack-for-clus.png'
+	function StartPage() {
+		setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/starting-light.gif?raw=true")
+		return (
+			
+		  <div>
+			<center>
+			<button  onClick={imageHandler} className="mainButton"><Link to="/race">Race!</Link></button>
+			</center>
+		  </div>
+	  );
+	  }
+	
+	  function QuestionPage() {
+
 		return (
 			
 		  <div>
@@ -128,7 +140,8 @@ const App = () => {
 		  </div>
 	  );
 	  }
-	
+
+
 // main biolerplate HTML for all pages
 
 	return (
@@ -144,7 +157,8 @@ const App = () => {
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/register" element={<RegisterPage />} />
 						<Route path="/holding-page" element={<HoldingPage />} />
-						<Route path="/start" element={<QuestionPage />} />
+						<Route path="/start-page" element={<StartPage />} />
+						<Route path="/race" element={<QuestionPage />} />
 					</Routes>
 				</Router>
 			</div>
