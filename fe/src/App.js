@@ -9,7 +9,7 @@ import {
 
 import axios from 'axios';
 import './App.css';
-import { Register } from "./components/RegisterPage";
+// import { Register } from "./components/RegisterPage";
 
 // Welcome screen before displaying the first question
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -74,17 +74,18 @@ const App = () => {
 		  url="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
 		  setImage(url)
 		return (
-		<div>
-		<div className='theForm'>Some added text </div>
-		 <div className=''>
-			  
-			{ Register() }
-			<h1 className="titles">Register Page!</h1>
-			{/* <Link to="/profile/:username">To the Holding Page!</Link> */}
-			{/* hardcode username for testing */}
-			<Link to="/profile/:username">To the Holding Page!</Link>
-		  </div>
-		  </div>
+			
+			<center>
+			<form name="f">
+			  <label>First Name: </label><input type="text" id="fname" ></input>
+			  <br></br>
+			  <label>Last Name: </label><input type="text" id="lname" ></input>
+			  <br></br>
+			  <label>Email Addr: </label><input type="text" id="emailId"  onkeyup="emailValidate()" ></input>
+			  <br></br>
+			  <button type="submit" className="mainButton"><Link to="/profile/:username">Register</Link></button>
+			</form>
+			</center>
 		);
 	  }
 
