@@ -55,7 +55,7 @@ const App = () => {
 
 	// produce button text with variable from above
 	// button can be hid before starting the race
-	var buttonElement = <button className="image-upload" onClick={imageHandler}>{buttonText}</button>
+	var buttonElement = <button className="mainButton" onClick={imageHandler}>{buttonText}</button>
 
 	var username = 'test_user'
 	var carNumber = 3
@@ -85,18 +85,21 @@ const App = () => {
 			  <br></br>
 			  <label>Email Addr: </label><input type="text" id="emailId"  onkeyup="emailValidate()" ></input>
 			  <br></br>
-			  <button type="submit" className="mainButton"><Link to="/profile/:username">Register</Link></button>
+			  <button type="submit" className="mainButton"><Link to="/holding-page">Register</Link></button>
 			</form>
 			</center>
 		);
 	  }
 
 	  function HoldingPage() {
+		url="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true"
+		setImage(url)
 		return (
 		<center>
 		  <div>
-			<h1>Profile Page for {username}!</h1>
-			<Link to="/start">To the Question Page!</Link>
+			<h1>Welcome, {username}!</h1>
+			<h1>You have been assigned Car #{carNumber}</h1>
+			<button className="mainButton"><Link to="/start">Start!</Link></button>
 		  </div>
 		  </center>
 		);
@@ -108,7 +111,9 @@ const App = () => {
 		return (
 			
 		  <div>
+			<center>
 			  {buttonElement}
+			</center>
 		  </div>
 	  );
 	  }
@@ -127,7 +132,7 @@ const App = () => {
 					<Routes>
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/register" element={<RegisterPage />} />
-						<Route path="/profile/:username" element={<HoldingPage />} />
+						<Route path="/holding-page" element={<HoldingPage />} />
 						<Route path="/start" element={<QuestionPage />} />
 					</Routes>
 				</Router>
