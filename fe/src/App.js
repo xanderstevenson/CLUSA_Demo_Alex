@@ -9,10 +9,10 @@ import {
 
 import axios from 'axios';
 import './App.css';
-
+import { Register } from "./components/RegisterPage";
 
 // Welcome screen before displaying the first question
-const url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
+var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 let index = 0
 // Set the slide heading
@@ -21,7 +21,7 @@ var headingWords = 'Cisco Formula Fun!'
 var buttonText = 'Begin!'
 
 const App = () => {
-	const [question,setImage] = useState(url)
+	var [question,setImage] = useState(url)
 	const [questionList,setQuestionList] = useState('')
 
 	useEffect( () => {
@@ -59,40 +59,31 @@ const App = () => {
 
 	var username = 'test_user'
 
-
+// 4 functions to display four different pages
 	
-
-	// 	<div className="page">
-	// 		<div className="container">
-	// 			{headingElement}
-	// 			<div className="img-holder">
-	// 				<img src={question} alt="" id="img" className="img" />
-	// 			</div>
-	// 			{buttonElement}
-	// 			<br></br>
-	// 			<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUS_Demo/blob/master/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
-	// 		</div>
-	// 	</div>
-	// )
-
-
-
 	function LandingPage() {
 		return (
-		  <div>
-			<h1 class="titles">Landing Page!</h1>
-			<Link to="/register">To Register!</Link>
-		  </div>
+		  	<div>
+				<button className="mainButton"><Link to="/register">Register</Link></button>
+				<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>
+			</div>
 		);
 	  }
 
 	  function RegisterPage() {
+		  url="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+		  setImage(url)
 		return (
-		  <div>
-			<h1 class="titles">Register Page!</h1>
+		<div>
+		<div className='theForm'>Some added text </div>
+		 <div className=''>
+			  
+			{ Register() }
+			<h1 className="titles">Register Page!</h1>
 			{/* <Link to="/profile/:username">To the Holding Page!</Link> */}
 			{/* hardcode username for testing */}
-			<Link to="/profile/andrew">To the Holding Page!</Link>
+			<Link to="/profile/:username">To the Holding Page!</Link>
+		  </div>
 		  </div>
 		);
 	  }
@@ -101,7 +92,7 @@ const App = () => {
 		return (
 		  <div>
 			<h1>Profile Page for {username}!</h1>
-			<Link to="/question">To the Question Page!</Link>
+			<Link to="/start">To the Question Page!</Link>
 		  </div>
 		);
 	  }
@@ -113,16 +104,11 @@ const App = () => {
 			
 		  <div>
 			  {buttonElement}
-			  {/* <div className="img-holder">
-				  <img src={question} alt="" id="img" className="img" />
-			  </div> */}
 		  </div>
 	  );
 	  }
 	
-
-
-
+// main biolerplate HTML for all pages
 
 	return (
 
@@ -137,11 +123,9 @@ const App = () => {
 						<Route exact path="/" element={<LandingPage />} />
 						<Route exact path="/register" element={<RegisterPage />} />
 						<Route path="/profile/:username" element={<HoldingPage />} />
-						<Route path="/question" element={<QuestionPage />} />
+						<Route path="/start" element={<QuestionPage />} />
 					</Routes>
 				</Router>
-				<br></br>
-        		<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>	
 			</div>
 	  	</div>
 	)
