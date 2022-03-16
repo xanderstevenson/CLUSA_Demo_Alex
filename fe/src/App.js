@@ -58,6 +58,7 @@ const App = () => {
 	var buttonElement = <button className="image-upload" onClick={imageHandler}>{buttonText}</button>
 
 	var username = 'test_user'
+	var carNumber = 3
 
 // 4 functions to display four different pages
 	
@@ -71,7 +72,7 @@ const App = () => {
 	  }
 
 	  function RegisterPage() {
-		  url="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg"
+		  url="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true"
 		  setImage(url)
 		return (
 			
@@ -92,10 +93,12 @@ const App = () => {
 
 	  function HoldingPage() {
 		return (
+		<center>
 		  <div>
 			<h1>Profile Page for {username}!</h1>
 			<Link to="/start">To the Question Page!</Link>
 		  </div>
+		  </center>
 		);
 	  }
 
