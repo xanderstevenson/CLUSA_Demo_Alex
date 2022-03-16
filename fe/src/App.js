@@ -64,7 +64,7 @@ const App = () => {
 	function LandingPage() {
 		return (
 		  	<div>
-				<button className="mainButton"><Link to="/register">Register</Link></button>
+				<button className="mainButton"><Link to="/register">Let's Register</Link></button>
 				<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>
 			</div>
 		);
@@ -77,6 +77,7 @@ const App = () => {
 			
 			<center>
 			<form name="f">
+
 			  <label>First Name: </label><input type="text" id="fname" ></input>
 			  <br></br>
 			  <label>Last Name: </label><input type="text" id="lname" ></input>
