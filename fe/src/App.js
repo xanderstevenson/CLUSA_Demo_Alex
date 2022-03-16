@@ -9,7 +9,18 @@ import {
 
 import axios from 'axios';
 import './App.css';
-// import { Register } from "./components/RegisterPage";
+
+
+// const cors = require('cors');
+// const corsOptions ={
+//     origin:'http://localhost:3000', 
+//     credentials:true,            //access-control-allow-credentials:true
+//     optionSuccessStatus:200
+// }
+// app.use(cors(corsOptions));
+
+
+
 
 // Welcome screen before displaying the first question
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -54,7 +65,6 @@ const App = () => {
     var headingElement = <p className="heading">{headingWords}</p>
 
 	// produce button text with variable from above
-	// button can be hid before starting the race
 	var buttonElement = <button className="mainButton" onClick={imageHandler}>{buttonText}</button>
 
 	var username = 'test_user'
@@ -65,6 +75,7 @@ const App = () => {
 	function LandingPage() {
 		return (
 		  	<div>
+				{/* <img src='https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'></img> */}
 				<button className="mainButton"><Link to="/register">Let's Register</Link></button>
 				<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>
 			</div>
@@ -72,8 +83,8 @@ const App = () => {
 	  }
 
 	  function RegisterPage() {
-		  url="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true"
-		  setImage(url)
+		  headingWords = "Race Registration"
+		  setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
 		return (
 			
 			<center>
@@ -92,13 +103,13 @@ const App = () => {
 	  }
 
 	  function HoldingPage() {
-		url="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true"
-		setImage(url)
+		headingWords = "Your Are Car #" + carNumber
+		setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true")
 		return (
 		<center>
 		  <div>
-			<h1>Welcome, {username}!</h1>
-			<h1>You have been assigned Car #{carNumber}</h1>
+			<h2>Welcome, {username}!</h2>
+			<h3>START YOUR ENGINES!</h3>
 			<button className="mainButton"><Link to="/start">Start!</Link></button>
 		  </div>
 		  </center>

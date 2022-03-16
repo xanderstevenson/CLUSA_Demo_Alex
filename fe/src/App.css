@@ -43,7 +43,7 @@
 .img{
   width: 747px;
   height: 420px;
-  object-fit: cover;
+  /* object-fit: cover; */
 }
 
 .label{
