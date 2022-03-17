@@ -63,15 +63,28 @@ const App = () => {
 		});
 	  };
 
+	  function objectToQueryString(obj) {
+		var str = [];
+		for (var p in obj)
+		  if (obj.hasOwnProperty(p)) {
+			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+		  }
+		return str.join("&");
+		}
+
 	  const handleSubmit = (e) => {
 		  
 		e.preventDefault();
-		const userData = {
-		  email: data.email,
-		  first: data.first,
-		  last: data.last
-		}; 
-		axios.post("http://127.0.0.1:8000/user?email=alexpstev%40cisco.com&first=l&last=p").then((response) => {
+		
+		const dbURL = "http://127.0.0.1:8000/user?"
+		var reqParams = {
+			email: data.email,
+			first: data.first,
+			last: data.last
+		}
+		var it = objectToQueryString(reqParams)
+		axios.post(dbURL + it)
+		.then((response) => {
 		console.log(response.status);
 		console.log(response.data.token);
 		alert(response)
@@ -128,9 +141,9 @@ const App = () => {
 				<input 
 					type="text" 
 					name="first" 
-					value={data.first}
 					placeholder="Enter first name"
-					// required
+					required
+					value={data.first}
 					onChange={handleChange}
 					id="fname" >
 				  </input>
