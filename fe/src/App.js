@@ -9,7 +9,7 @@ import {
 
 import axios from 'axios';
 import './App.css';
-import RegisterScreen from './components/handleSubmit';
+import UserAdd from './components/UserAdd';
 
 
 // Set initial image on screen
@@ -64,42 +64,34 @@ const App = () => {
 	  };
 
 	  const handleSubmit = (e) => {
+		  
 		e.preventDefault();
 		const userData = {
 		  email: data.email,
 		  first: data.first,
 		  last: data.last
-		};
-		axios.post("http://127.0.0.1:8000/user", userData).then((response) => {
+		}; 
+		axios.post("http://127.0.0.1:8000/user?email=alexpstev%40cisco.com&first=l&last=p").then((response) => {
 		console.log(response.status);
 		console.log(response.data.token);
-		});
-	};
+		alert(response)
+		})
+		.catch((error) => {
+			if (error.response) {
+			  console.log(error.response);
+			  console.log("server responded");
+			} else if (error.request) {
+			  console.log("network error");
+			} else {
+			  console.log(error);
+		}
+		})
+	}
 
-
-	// const submitButton = document.getElementById("submitButton");
-
-	// submitButton.addEventListener("click", () => {
-	// 	// event.preventDefault();
-	// 	var email = 'email@email.com';
-	// 	var first = 'alex';
-	// 	var last = 'stevenson';
-	// 	axios.post('http://127.0.0.1:8000/user', {
-	// 		 email: email,
-	// 		 first: first,
-	// 		 last: last 
-	// 		})
-	// 	  .then(response=>{
-	// 		console.log(response);
-	// 		console.log(response.data);
-	// 		alert(response)
-	// 		window.location = "/holding-page" //This line of code will redirect you once the submission is succeed
-	// 	  })
-	//   });
 
 
 	// Set the slide heading
-	var headingWords = 'Cisco Formula Fun!'
+	var headingWords = 'Cisco DevNet Dash!'
 	// Set the button text
 	var buttonText = 'Begin!'
     // produce header element with variable from above
@@ -107,7 +99,6 @@ const App = () => {
 	// produce button text with variable from above
 	var buttonElement = <button className="mainButton" onClick={imageHandler}>{buttonText}</button>
     // hardcoded user data for testing
-	var username = 'test_user'
 	var carNumber = 3
 
 // 5 functions to display five different pages
@@ -126,13 +117,12 @@ const App = () => {
 	  function RegisterPage() {
 		  headingWords = "Race Registration"
 		  setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
-		  
-		  username = 'who?'
 		   
 		  return (
 
 	// This is the form to collect user data
 			<center>
+				{/* <UserAdd/> */}
 			<form name="f" onSubmit={handleSubmit}>
 			<label>First Name: </label>
 				<input 
@@ -169,8 +159,9 @@ const App = () => {
                   >
 				</input>
 			  <br></br>
-			  <button type="submit" id="submitButton" className="mainButton"><Link to="/holding-page">Register</Link></button>
-			</form>
+			  <button type="submit" id="submitButton" className="mainButton" onClick={handleSubmit}><Link to="/holding-page">Register</Link></button>
+			</form> 
+  
 			</center>
 		);
 	  }
