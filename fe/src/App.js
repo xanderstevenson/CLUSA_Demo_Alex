@@ -9,32 +9,20 @@ import {
 
 import axios from 'axios';
 import './App.css';
+import RegisterScreen from './components/handleSubmit';
 
 
-// const cors = require('cors');
-// const corsOptions ={
-//     origin:'http://localhost:3000', 
-//     credentials:true,            //access-control-allow-credentials:true
-//     optionSuccessStatus:200
-// }
-// app.use(cors(corsOptions));
-
-
-
-
-// Welcome screen before displaying the first question
+// Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 let index = 0
-// Set the slide heading
-var headingWords = 'Cisco Formula Fun!'
-// Set the button text
-var buttonText = 'Begin!'
 
+// main super function
 const App = () => {
 	var [question,setImage] = useState(url)
 	const [questionList,setQuestionList] = useState('')
 
+// getting the questions
 	useEffect( () => {
 		if( questionList === '' ) {
 			axios.get('http://localhost:8000/questions')
@@ -46,7 +34,7 @@ const App = () => {
 			})
 		}
 	}, []);
-
+// dislaying the questions
 	const imageHandler = (e) => {
 		if (index < questionList.length) {
 			// change button text variable to be plugged into buttonElement below
@@ -60,18 +48,38 @@ const App = () => {
 		}
 	}
 
+	///// submit form data
 
+	const handleSubmit = event => {
+		event.preventDefault();
+		const user = {
+		//   name: this.state.name
+		name: 'alex'
+		}
+		axios.post('https://jsonplaceholder.typicode.com/users', { user })
+		  .then(res=>{
+			console.log(res);
+			console.log(res.data);
+			window.location = "/holding-page" //This line of code will redirect you once the submission is succeed
+		  })
+	  }
+
+
+	// Set the slide heading
+	var headingWords = 'Cisco Formula Fun!'
+	// Set the button text
+	var buttonText = 'Begin!'
     // produce header element with variable from above
     var headingElement = <p className="heading">{headingWords}</p>
-
 	// produce button text with variable from above
 	var buttonElement = <button className="mainButton" onClick={imageHandler}>{buttonText}</button>
-
+    // hardcoded user data for testing
 	var username = 'test_user'
 	var carNumber = 3
 
-// 4 functions to display four different pages
+// 5 functions to display five different pages
 	
+// page 1
 	function LandingPage() {
 		return (
 		  	<div>
@@ -81,27 +89,26 @@ const App = () => {
 			</div>
 		);
 	  }
-
+// page 2
 	  function RegisterPage() {
 		  headingWords = "Race Registration"
 		  setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
-		return (
-			
+		  
+
+		 
+		  return (
+
+	// This is the form to collect user data
 			<center>
 			<form name="f">
-
-			  <label>First Name: </label><input type="text" id="fname" ></input>
+			<RegisterScreen/>
 			  <br></br>
-			  <label>Last Name: </label><input type="text" id="lname" ></input>
-			  <br></br>
-			  <label>Email Addr: </label><input type="text" id="emailId"  onkeyup="emailValidate()" ></input>
-			  <br></br>
-			  <button type="submit" className="mainButton"><Link to="/holding-page">Register</Link></button>
+			  <button type="submit" className="mainButton" onClick={handleSubmit}><Link to="/holding-page">Register</Link></button>
 			</form>
 			</center>
 		);
 	  }
-
+// page 3
 	  function HoldingPage() {
 		headingWords = "Your Are Car #" + carNumber
 		setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true")
@@ -116,7 +123,7 @@ const App = () => {
 		);
 	  }
 
-
+// page 4
 	function StartPage() {
 		setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/starting-light.gif?raw=true")
 		return (
@@ -128,11 +135,9 @@ const App = () => {
 		  </div>
 	  );
 	  }
-	
+// page 5	
 	  function QuestionPage() {
-
 		return (
-			
 		  <div>
 			<center>
 			  {buttonElement}
@@ -164,11 +169,7 @@ const App = () => {
 			</div>
 	  	</div>
 	)
-
-
 }
-
-
 
 export default App;
 
