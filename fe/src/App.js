@@ -21,6 +21,11 @@ let index = 0
 const App = () => {
 	var [question,setImage] = useState(url)
 	const [questionList,setQuestionList] = useState('')
+	const [data, setData] = useState({
+		email: "",
+		first: "",
+		last: ""
+	  });
 
 // getting the questions
 	useEffect( () => {
@@ -50,19 +55,47 @@ const App = () => {
 
 	///// submit form data
 
-	const handleSubmit = event => {
-		event.preventDefault();
-		const user = {
-		//   name: this.state.name
-		name: 'alex'
-		}
-		axios.post('https://jsonplaceholder.typicode.com/users', { user })
-		  .then(res=>{
-			console.log(res);
-			console.log(res.data);
-			window.location = "/holding-page" //This line of code will redirect you once the submission is succeed
-		  })
-	  }
+	const handleChange = (e) => {
+		const value = e.target.value;
+		setData({
+		  ...data,
+		  [e.target.name]: value
+		});
+	  };
+
+	  const handleSubmit = (e) => {
+		e.preventDefault();
+		const userData = {
+		  email: data.email,
+		  first: data.first,
+		  last: data.last
+		};
+		axios.post("http://127.0.0.1:8000/user", userData).then((response) => {
+		console.log(response.status);
+		console.log(response.data.token);
+		});
+	};
+
+
+	// const submitButton = document.getElementById("submitButton");
+
+	// submitButton.addEventListener("click", () => {
+	// 	// event.preventDefault();
+	// 	var email = 'email@email.com';
+	// 	var first = 'alex';
+	// 	var last = 'stevenson';
+	// 	axios.post('http://127.0.0.1:8000/user', {
+	// 		 email: email,
+	// 		 first: first,
+	// 		 last: last 
+	// 		})
+	// 	  .then(response=>{
+	// 		console.log(response);
+	// 		console.log(response.data);
+	// 		alert(response)
+	// 		window.location = "/holding-page" //This line of code will redirect you once the submission is succeed
+	// 	  })
+	//   });
 
 
 	// Set the slide heading
@@ -94,16 +127,49 @@ const App = () => {
 		  headingWords = "Race Registration"
 		  setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
 		  
-
-		 
+		  username = 'who?'
+		   
 		  return (
 
 	// This is the form to collect user data
 			<center>
-			<form name="f">
-			<RegisterScreen/>
+			<form name="f" onSubmit={handleSubmit}>
+			<label>First Name: </label>
+				<input 
+					type="text" 
+					name="first" 
+					value={data.first}
+					placeholder="Enter first name"
+					// required
+					onChange={handleChange}
+					id="fname" >
+				  </input>
 			  <br></br>
-			  <button type="submit" className="mainButton" onClick={handleSubmit}><Link to="/holding-page">Register</Link></button>
+			  <label>Last Name: </label>
+			  	<input 
+				  type="text" 
+				  name="last" 
+				  value={data.last}
+				  placeholder="Enter last name" 
+				//   required
+				  onChange={handleChange}
+				  id="lname" >
+				</input>
+			  <br></br>
+			  <label>Email Addr: </label>
+			  	<input 
+				  type="email" 
+				  name="email" 
+				  value={data.email}
+				  placeholder="Enter email" 
+				//   required
+				  onChange={handleChange}
+				  id="emailId"  
+				//   onKeyUp="emailValidate()" 
+                  >
+				</input>
+			  <br></br>
+			  <button type="submit" id="submitButton" className="mainButton"><Link to="/holding-page">Register</Link></button>
 			</form>
 			</center>
 		);
@@ -115,7 +181,7 @@ const App = () => {
 		return (
 		<center>
 		  <div>
-			<h2>Welcome, {username}!</h2>
+			<h2>Welcome, {data.first}!</h2>
 			<h3>START YOUR ENGINES!</h3>
 			<button className="mainButton"><Link to="/start-page">Start!</Link></button>
 		  </div>
