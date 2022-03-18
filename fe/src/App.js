@@ -9,6 +9,7 @@ import {
 import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
+import {LandingPage} from './components/LandingPage';
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -24,8 +25,11 @@ const initialData = Object.freeze({
   });
 // main super function
 const App = () => {
+// State for images
 	var [question,setImage] = useState(url)
+// State for question
 	const [questionList,setQuestionList] = useState('')
+// State for data
 	const [data, setData] = useState(initialData);
 
 // getting the questions
@@ -112,16 +116,9 @@ var carNumber = 3
 
 // 5 functions to display five different pages
 	
-// page 1
-function LandingPage() {
-	return (
-		<div>
-			{/* <img src='https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'></img> */}
-			<button className="mainButton"><Link to="/register">Let's Register</Link></button>
-			<center><img id="devnetIcon" src="https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/purple-devnet-sharp.jpeg?raw=true" alt="Devnet log, purple"></img></center>
-		</div>
-	);
-	}
+// Page 1
+	// using imported module as function
+LandingPage()
 // page 2
 const RegisterPage = () => {
 	headingWords = "Race Registration"
