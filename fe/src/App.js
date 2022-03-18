@@ -6,25 +6,22 @@ import {
 	Route,
 	Link
   } from "react-router-dom";
-
 import axios from 'axios';
 import './App.css';
-import UserAdd from './components/UserAdd';
-
+import {objectToQueryString} from './components/UserAdd';
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 let index = 0
 
-// Initialize data object
+// Initialize data object for user
 const initialData = Object.freeze({
 	email: "",
 	first: "",
 	last: "",
 	id: ""
   });
-
 // main super function
 const App = () => {
 	var [question,setImage] = useState(url)
@@ -43,7 +40,6 @@ const App = () => {
 			})
 		}
 	}, []);
-
 // dislaying the questions
 	const imageHandler = (e) => {
 		if (index < questionList.length) {
@@ -57,66 +53,51 @@ const App = () => {
 			alert('Congratulation, you have completed the challenge!')
 		}
 	}
-
 	///// handle form input
-
-	  const handleChange = (event) => {
+	const handleChange = (event) => {
+	setData({
+		...data,
+		[event.target.name]: event.target.value.trim()
+	});
+	}
+	/// handle form submission
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		// building api call
+		const dbURL = "http://127.0.0.1:8000/user?"
+		var reqParams = {
+			email: data.email,
+			first: data.first,
+			last: data.last
+		}
+		// use imported utility function from other module
+		var uriParams = objectToQueryString(reqParams)
+		// post to api
+		axios.post(dbURL + uriParams)
+		// api call response
+		.then((response) => {
+		console.log(response.status);
+		// this is User ID: response.data._id
+		// setting user id into data object
 		setData({
-		  ...data,
-		  [event.target.name]: event.target.value.trim()
-		});
-	  }
-
-	  // function to turn parameters into a URI string
-
-	  function objectToQueryString(obj) {
-		var str = [];
-		for (var p in obj)
-		  if (obj.hasOwnProperty(p)) {
-			str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-		  }
-		return str.join("&");
-		}
-
-		/// handle form submission
-
-		const handleSubmit = (e) => {
-			e.preventDefault();
-			// building api call
-			const dbURL = "http://127.0.0.1:8000/user?"
-			var reqParams = {
-				email: data.email,
-				first: data.first,
-				last: data.last
-			}
-			var uriParams = objectToQueryString(reqParams)
-			axios.post(dbURL + uriParams)
-			// api call response
-			.then((response) => {
-			console.log(response.status);
-			// this is User ID: response.data._id
-			// setting user id into data object
-			setData({
-				email: data.email,
-				first: data.first,
-				last: data.last,
-				id: response.data._id
-			})
+			email: data.email,
+			first: data.first,
+			last: data.last,
+			id: response.data._id
 		})
-		.catch((error) => {
-			if (error.response) {
-			  console.log(error.response);
-			  console.log("server responded");
-			} else if (error.request) {
-			  console.log("network error");
-			} else {
-			  console.log(error);
-		}
-		})
-		
+	})
+	.catch((error) => {
+		if (error.response) {
+			console.log(error.response);
+			console.log("server responded");
+		} else if (error.request) {
+			console.log("network error");
+		} else {
+			console.log(error);
+	}
+	})		
 }
-// end of App()
-
+// end of App() super function
 
 // Set the slide heading
 var headingWords = 'Cisco DevNet Dash!'
@@ -147,10 +128,8 @@ const RegisterPage = () => {
 	setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
 	
 	return (
-
 // This is the form to collect user data
 	<center>
-	
 	<form name='form'>
 	<label htmlFor="fname">First Name: </label>
 		<input 
@@ -212,12 +191,10 @@ return (
 	</center>
 );
 }
-
 // page 4
 function StartPage() {
 	setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/starting-light.gif?raw=true")
 	return (
-		
 		<div>
 		<center>
 		<button  onClick={imageHandler} className="mainButton"><Link to="/race">Race!</Link></button>
@@ -225,7 +202,7 @@ function StartPage() {
 		</div>
 	);
 }
-// page 5	
+// page 5 - where questions are displayed / rotated
 function QuestionPage() {
 return (
 	<div>
@@ -235,10 +212,7 @@ return (
 	</div>
 );
 }
-
-
 // main biolerplate HTML for all pages
-
 return (
 	<div className="page">
 		<div className="container">
@@ -259,9 +233,4 @@ return (
 	</div>
 	)
 }
-
 export default App;
-
-
-
-
