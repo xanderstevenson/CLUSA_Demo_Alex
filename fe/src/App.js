@@ -17,15 +17,21 @@ var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/ba
 // Index to the current question
 let index = 0
 
+//
+var userID = ''
+
+const initialData = Object.freeze({
+	email: "",
+	first: "",
+	last: "",
+	id: ""
+  });
+
 // main super function
 const App = () => {
 	var [question,setImage] = useState(url)
 	const [questionList,setQuestionList] = useState('')
-	const [data, setData] = useState({
-		email: "",
-		first: "",
-		last: ""
-	  });
+	const [data, setData] = useState(initialData);
 
 // getting the questions
 	useEffect( () => {
@@ -53,15 +59,21 @@ const App = () => {
 		}
 	}
 
-	///// submit form data
+	///// handle form input
 
-	const handleChange = (e) => {
-		const value = e.target.value;
+
+
+
+
+
+	  const handleChange = (event) => {
 		setData({
 		  ...data,
-		  [e.target.name]: value
+		  [event.target.name]: event.target.value.trim()
 		});
-	  };
+	  }
+
+	  // function to turn parameters into a URI string
 
 	  function objectToQueryString(obj) {
 		var str = [];
@@ -72,23 +84,32 @@ const App = () => {
 		return str.join("&");
 		}
 
-	  const handleSubmit = (e) => {
-		  
-		e.preventDefault();
-		
-		const dbURL = "http://127.0.0.1:8000/user?"
-		var reqParams = {
-			email: data.email,
-			first: data.first,
-			last: data.last
-		}
-		var it = objectToQueryString(reqParams)
-		axios.post(dbURL + it)
-		.then((response) => {
-		console.log(response.status);
-		console.log(response.data.token);
-		alert(response)
+		/// handle form submission
+
+		const handleSubmit = (e) => {
+			e.preventDefault();
+			// building api call
+			const dbURL = "http://127.0.0.1:8000/user?"
+			var reqParams = {
+				email: data.email,
+				first: data.first,
+				last: data.last
+			}
+			var it = objectToQueryString(reqParams)
+			axios.post(dbURL + it)
+			// api call response
+			.then((response) => {
+			console.log(response.status);
+			// this is User ID: response.data._id
+			// setting user id into data object
+			setData({
+				email: data.email,
+				first: data.first,
+				last: data.last,
+				id: response.data._id
+			})
 		})
+
 		.catch((error) => {
 			if (error.response) {
 			  console.log(error.response);
@@ -99,6 +120,7 @@ const App = () => {
 			  console.log(error);
 		}
 		})
+		
 	}
 
 
@@ -127,7 +149,7 @@ const App = () => {
 		);
 	  }
 // page 2
-	  function RegisterPage() {
+	  const RegisterPage = () => {
 		  headingWords = "Race Registration"
 		  setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
 		   
@@ -135,17 +157,20 @@ const App = () => {
 
 	// This is the form to collect user data
 			<center>
-				{/* <UserAdd/> */}
-			<form name="f" onSubmit={handleSubmit}>
-			<label>First Name: </label>
+			
+			<form name='form'>
+			<label htmlFor="fname">First Name: </label>
 				<input 
 					type="text" 
 					name="first" 
 					placeholder="Enter first name"
-					required
+					// required
 					value={data.first}
 					onChange={handleChange}
-					id="fname" >
+					id="fname"
+					maxLength='25'
+					minLength='1'
+					>
 				  </input>
 			  <br></br>
 			  <label>Last Name: </label>
@@ -156,7 +181,8 @@ const App = () => {
 				  placeholder="Enter last name" 
 				//   required
 				  onChange={handleChange}
-				  id="lname" >
+				  id="lname" 
+				  >
 				</input>
 			  <br></br>
 			  <label>Email Addr: </label>
@@ -179,13 +205,14 @@ const App = () => {
 		);
 	  }
 // page 3
-	  function HoldingPage() {
+	  const HoldingPage = () => {
 		headingWords = "Your Are Car #" + carNumber
 		setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true")
 		return (
 		<center>
 		  <div>
-			<h2>Welcome, {data.first}!</h2>
+			<p>Welcome, {data.first}</p>
+			<p>ID # {data.id} </p> 
 			<h3>START YOUR ENGINES!</h3>
 			<button className="mainButton"><Link to="/start-page">Start!</Link></button>
 		  </div>
