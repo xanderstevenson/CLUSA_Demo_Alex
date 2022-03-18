@@ -53,32 +53,32 @@ const App = () => {
 			alert('Congratulation, you have completed the challenge!')
 		}
 	}
-	///// handle form input
+///// handle form input
 	const handleChange = (event) => {
 	setData({
 		...data,
 		[event.target.name]: event.target.value.trim()
 	});
 	}
-	/// handle form submission
+/// handle form submission
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// building api call
+// building api call
 		const dbURL = "http://127.0.0.1:8000/user?"
 		var reqParams = {
 			email: data.email,
 			first: data.first,
 			last: data.last
 		}
-		// use imported utility function from other module
+// use imported utility function from other module
 		var uriParams = objectToQueryString(reqParams)
-		// post to api
+// post to api
 		axios.post(dbURL + uriParams)
-		// api call response
+// api call response
 		.then((response) => {
 		console.log(response.status);
-		// this is User ID: response.data._id
-		// setting user id into data object
+// this is User ID: response.data._id
+// setting user id into data object
 		setData({
 			email: data.email,
 			first: data.first,
@@ -172,7 +172,6 @@ const RegisterPage = () => {
 		<br></br>
 		<button type="submit" id="submitButton" className="mainButton" onClick={handleSubmit}><Link to="/holding-page">Register</Link></button>
 	</form> 
-
 	</center>
 );
 }
