@@ -10,6 +10,7 @@ import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
+import {RegisterPage} from './components/RegisterPage';
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -117,14 +118,18 @@ var carNumber = 3
 // 5 functions to display five different pages
 	
 // Page 1
-	// using imported module as function
+// 	using imported module as function
 LandingPage()
-// page 2
+// RegisterPage()
+// Page 2
 const RegisterPage = () => {
 	headingWords = "Race Registration"
 	setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
 	
+	
+
 	return (
+
 // This is the form to collect user data
 	<center>
 	<form name='form'>
@@ -167,7 +172,7 @@ const RegisterPage = () => {
 			>
 		</input>
 		<br></br>
-		<button type="submit" id="submitButton" className="mainButton" onClick={handleSubmit}><Link to="/holding-page">Register</Link></button>
+		<button type="submit" id="submitButton" className="mainButton" onClick={(event) => handleSubmit(event)}><Link to="/holding-page">Register</Link></button>
 	</form> 
 	</center>
 );
@@ -208,6 +213,7 @@ return (
 	</div>
 );
 }
+QuestionPage()
 // main biolerplate HTML for all pages
 return (
 	<div className="page">
