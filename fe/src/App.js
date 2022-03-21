@@ -17,12 +17,21 @@ var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/ba
 // Index to the current question
 let index = 0
 
+
+
+
 // Initialize data object for user
 const initialData = Object.freeze({
 	email: "",
 	first: "",
 	last: "",
-	id: ""
+	id: "",
+	number: null,
+	ip: "",
+	position: 0,
+	start: null,
+	end: null,
+	userid: null
   });
 // main super function
 const App = () => {
@@ -67,6 +76,9 @@ const App = () => {
 	}
 /// handle form submission
 	const handleSubmit = (e) => {
+
+
+
 		e.preventDefault();
 // building api call
 		const dbURL = "http://127.0.0.1:8000/"
@@ -81,18 +93,15 @@ const App = () => {
 		axios.post(dbURL + "user?" + uriParams)
 // api call response
 		.then((response) => {
-		console.log(response.status);
-// this is User ID: response.data._id
-// get car assignment
-			AssignCar()
 // setting user id into data object
 		setData({
 			email: data.email,
 			first: data.first,
 			last: data.last,
+			// from /user
 			id: response.data._id
 		})
-	})
+		})
 	.catch((error) => {
 		if (error.response) {
 			console.log(error.response);
@@ -102,7 +111,26 @@ const App = () => {
 		} else {
 			console.log(error);
 	}
-	})		
+	})	
+	// var respObj = AssignCar()
+	// 	// setting user id into data object
+	// 			setData({
+	// 			// 	// from /cars
+	// 			// 	// number: respObj.number,
+	// 			// 	// ip: respObj.ip,
+	// 			// 	// position: respObj.position,
+	// 			// 	// start: respObj.start,
+	// 			// 	// end: respObj.end,
+	// 			// 	// userid: respObj.userid
+
+	// 				number: 1,
+	// 				ip: "22",
+	// 				position: 4,
+	// 				start: 4,
+	// 				end: 3,
+	// 				userid: 1
+	// 			})
+
 }
 // end of App() super function
 
@@ -179,15 +207,24 @@ const RegisterPage = () => {
 );
 }
 // page 3
+
+
+// get car assignment
+
+
+
 const HoldingPage = () => {
 headingWords = "Your Are Car #" + carNumber
 setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true")
 return (
 <center>
 	<div>
-	<p>Welcome, {data.first}</p>
-	<p>ID # {data.id} </p> 
-	<h3>START YOUR ENGINES!</h3>
+	<p>Name: {data.first} {data.last}</p>
+	<p>Email: {data.email}</p>
+	<p>ID # {data.id} </p>
+	{/* <p>Car # {data.number}</p>
+	<p>IP Address : {data.ip}</p> */}
+
 	<button className="mainButton"><Link to="/start-page">Start!</Link></button>
 	</div>
 	</center>
