@@ -10,7 +10,7 @@ import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
-import {RegisterPage} from './components/RegisterPage';
+import {AssignCar} from './components/AssignCar';
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -69,7 +69,7 @@ const App = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 // building api call
-		const dbURL = "http://127.0.0.1:8000/user?"
+		const dbURL = "http://127.0.0.1:8000/"
 		var reqParams = {
 			email: data.email,
 			first: data.first,
@@ -78,11 +78,13 @@ const App = () => {
 // use imported utility function from other module
 		var uriParams = objectToQueryString(reqParams)
 // post to api
-		axios.post(dbURL + uriParams)
+		axios.post(dbURL + "user?" + uriParams)
 // api call response
 		.then((response) => {
 		console.log(response.status);
 // this is User ID: response.data._id
+// get car assignment
+			AssignCar()
 // setting user id into data object
 		setData({
 			email: data.email,
@@ -120,14 +122,13 @@ var carNumber = 3
 // Page 1
 // 	using imported module as function
 LandingPage()
-// RegisterPage()
+
 // Page 2
 const RegisterPage = () => {
 	headingWords = "Race Registration"
 	setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
 	
 	
-
 	return (
 
 // This is the form to collect user data
