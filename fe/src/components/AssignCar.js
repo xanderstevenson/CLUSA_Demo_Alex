@@ -1,42 +1,42 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+
 import axios from 'axios';
 
 
-function random_item(items){
-    return items[Math.floor(Math.random()*items.length)];    
-}
+// function random_item(items){
+//     return items[Math.floor(Math.random()*items.length)];    
+// }
 
+// var respObj = {
+//     number: 0,
+//     ip: "",
+//     position: 0,
+//     start: null,
+//     end: null,
+//     userid: null,
+// }
 
+export function AssignCar(id) {
 
-export function AssignCar() {
+    var respObj = {}
+    var userId = id
 
-    var respObj
-
-    let allCarsURL = "http://127.0.0.1:8000/cars"
+    let allCarsURL = "http://127.0.0.1:8000/start"
     // get request ot to api, no params required
-    let resp = axios.get(allCarsURL)
+    axios.put(allCarsURL + "?userid=" + userId)
     // api call response
-    .then((resp) => {
-        console.log(resp.status);
-        console.log('ip address = ' + random_item(resp.data)["ip"])
+    .then((response) => {
+        console.log(response.status);
+        console.log('ip address = ' + (response.data)["ip"])
         
-        respObj = {
-            number: 0,
-            ip: "",
-            position: 0,
-            start: null,
-            end: null,
-            userid: null,
-        }
+
         // get car assignment
         // resp = AssignCar()
-        respObj.number = resp.data["number"]
-        respObj.ip = resp.data["ip"]
-        respObj.position = resp.data["position"]
-        respObj.start = resp.data["start"]
-        respObj.end = resp.data["end"]
-        respObj.userid = resp.data["userid"]
+        respObj.number = response.data["number"]
+        respObj.ip = response.data["ip"]
+        respObj.position = response.data["position"]
+        respObj.start = response.data["start"]
+        respObj.end = response.data["end"]
+        respObj.userid = response.data["userid"]
 
     })
     .catch((error) => {

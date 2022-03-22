@@ -76,9 +76,6 @@ const App = () => {
 	}
 /// handle form submission
 	const handleSubmit = (e) => {
-
-
-
 		e.preventDefault();
 // building api call
 		const dbURL = "http://127.0.0.1:8000/"
@@ -93,13 +90,13 @@ const App = () => {
 		axios.post(dbURL + "user?" + uriParams)
 // api call response
 		.then((response) => {
+			console.log(response.data._id)
 // setting user id into data object
 		setData({
 			email: data.email,
 			first: data.first,
 			last: data.last,
-			// from /user
-			id: response.data._id
+			id: response.data._id,
 		})
 		})
 	.catch((error) => {
@@ -112,38 +109,19 @@ const App = () => {
 			console.log(error);
 	}
 	})	
-	// var respObj = AssignCar()
-	// 	// setting user id into data object
-	// 			setData({
-	// 			// 	// from /cars
-	// 			// 	// number: respObj.number,
-	// 			// 	// ip: respObj.ip,
-	// 			// 	// position: respObj.position,
-	// 			// 	// start: respObj.start,
-	// 			// 	// end: respObj.end,
-	// 			// 	// userid: respObj.userid
-
-	// 				number: 1,
-	// 				ip: "22",
-	// 				position: 4,
-	// 				start: 4,
-	// 				end: 3,
-	// 				userid: 1
-	// 			})
-
 }
 // end of App() super function
 
 // Set the slide heading
 var headingWords = 'Cisco DevNet Dash!'
 // Set the button text
-var buttonText = 'Begin!'
+var buttonText = 'Next!'
 // produce header element with variable from above
 var headingElement = <p className="heading">{headingWords}</p>
 // produce button text with variable from above
 var buttonElement = <button className="mainButton" onClick={imageHandler}>{buttonText}</button>
 // hardcoded user data for testing
-var carNumber = 3
+var carNumber = null
 
 // 5 functions to display five different pages
 	
@@ -154,7 +132,7 @@ LandingPage()
 // Page 2
 const RegisterPage = () => {
 	headingWords = "Race Registration"
-	setImage('https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/cars-palmtrees.jpg?raw=true')
+	setImage('./cars-palmtrees.jpg')
 	
 	
 	return (
@@ -207,32 +185,32 @@ const RegisterPage = () => {
 );
 }
 // page 3
-
-
 // get car assignment
+
 
 
 
 const HoldingPage = () => {
 headingWords = "Your Are Car #" + carNumber
-setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/lambo_speedometer.gif?raw=true")
+setImage("./lambo_speedometer.gif")
 return (
 <center>
 	<div>
 	<p>Name: {data.first} {data.last}</p>
 	<p>Email: {data.email}</p>
 	<p>ID # {data.id} </p>
-	{/* <p>Car # {data.number}</p>
-	<p>IP Address : {data.ip}</p> */}
+	<p>Car # {data.number}</p>
+	<p>IP Address : {data.ip}</p>
 
-	<button className="mainButton"><Link to="/start-page">Start!</Link></button>
+	<button onClick={() => AssignCar(data.id)} className="mainButton">Get Car Assign</button>
+	<button className="mainButton"><Link to="/start-page">Go to Start</Link></button>
 	</div>
 	</center>
 );
 }
 // page 4
 function StartPage() {
-	setImage("https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/fe/public/starting-light.gif?raw=true")
+	setImage("./starting-light.gif")
 	return (
 		<div>
 		<center>
