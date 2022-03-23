@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, initialState } from 'react';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -10,7 +10,8 @@ import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
-import {AssignCar} from './components/AssignCar';
+// import {AssignCar} from './components/AssignCar';
+import { delay } from './components/Delay';
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -34,7 +35,7 @@ const initialData = Object.freeze({
 	userid: null
   });
 // main super function
-const App = () => {
+const App = (props) => {
 // State for images
 	var [question,setImage] = useState(url)
 // State for question
@@ -55,7 +56,7 @@ const App = () => {
 		}
 	}, []);
 // dislaying the questions
-	const imageHandler = (e) => {
+	const imageHandler = ({imageHandler}, e) => {
 		if (index < questionList.length) {
 			// change button text variable to be plugged into buttonElement below
 			buttonText = 'Next Question'
@@ -89,14 +90,15 @@ const App = () => {
 // post to api
 		axios.post(dbURL + "user?" + uriParams)
 // api call response
-		.then((response) => {
-			console.log(response.data._id)
+		.then((response) => {		
+			
 // setting user id into data object
 		setData({
 			email: data.email,
 			first: data.first,
 			last: data.last,
 			id: response.data._id,
+
 		})
 		})
 	.catch((error) => {
@@ -109,6 +111,8 @@ const App = () => {
 			console.log(error);
 	}
 	})	
+
+	console.log('data id = ' + data.id)
 }
 // end of App() super function
 
@@ -187,12 +191,67 @@ const RegisterPage = () => {
 // page 3
 // get car assignment
 
+function AssignCar(id) {
 
+
+	// get car assignment
+	var respObj
+	
+		var userId = id
+	
+		let allCarsURL = "http://127.0.0.1:8000/start"
+		// get request ot to api, no params required
+		axios.put(allCarsURL + "?userid=" + userId)
+		// api call response
+			.then((response) => {
+				console.log(response.status);
+				console.log('ip address = ' + (response.data)["ip"])
+	
+				// get car assignment
+				respObj = {
+					number: 0,
+				}
+				
+				respObj.number = response.data["number"]
+				console.log('car number = ' + respObj.number)
+				respObj.ip = response.data["ip"]
+				respObj.position = response.data["position"]
+				respObj.start = response.data["start"]
+				respObj.end = response.data["end"]
+				respObj.userid = response.data["userid"]
+				console.log(respObj)
+				setData({
+					email: data.email,
+					first: data.first,
+					last: data.last,
+					id: respObj.userid,
+					number: respObj.number,
+					ip: respObj.ip,
+					position: respObj.position,
+					start: respObj.start,
+					end: respObj.end,
+					userid: respObj.userid
+				})
+			}
+			)
+			.catch((error) => {
+				if (error.resp) {
+					console.log(error.response);
+					console.log("server responded");
+				} else if (error.request) {
+					console.log("network error");
+				} else {
+					console.log(error);
+			}
+			})
+	}
+	
 
 
 const HoldingPage = () => {
 headingWords = "Your Are Car #" + carNumber
 setImage("./lambo_speedometer.gif")
+
 return (
 <center>
 	<div>
@@ -209,16 +268,27 @@ return (
 );
 }
 // page 4
+
+// StartPage()
+
+
+
+
+
 function StartPage() {
 	setImage("./starting-light.gif")
 	return (
 		<div>
 		<center>
+		<p>Car # {data.number}</p>
 		<button  onClick={imageHandler} className="mainButton"><Link to="/race">Race!</Link></button>
 		</center>
 		</div>
 	);
 }
+
+
+
 // page 5 - where questions are displayed / rotated
 function QuestionPage() {
 return (
@@ -243,7 +313,7 @@ return (
 					<Route exact path="/" element={<LandingPage />} />
 					<Route exact path="/register" element={<RegisterPage />} />
 					<Route path="/holding-page" element={<HoldingPage />} />
-					<Route path="/start-page" element={<StartPage />} />
+					<Route path="/start-page" element={<StartPage imageHandler={imageHandler} />} />
 					<Route path="/race" element={<QuestionPage />} />
 				</Routes>
 			</Router>
