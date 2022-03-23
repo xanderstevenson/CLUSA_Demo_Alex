@@ -3,20 +3,43 @@
 <head>
   <link href="{{ url_for('templates', path='styles.css') }}" rel="stylesheet">
   <meta http-equiv="refresh" content="10">
+
+  <!-- Validate email enetered in register form (see App.js) -->
+  <script crossorigin src="..."></script>
+  <script type='text/JavaScript'>
+    function emailValidate()
+    {
+      var emailId = document.getElementById("emailId").value;
+      console.log("1");
+      var regex = /^\w+([-.]?\w+)*@\w+([-.]?\w+)*\.\w+([-.]\w+)*$/;
+      if( regex.test(emailId))
+      {
+          console.log("2");
+          document.getElementById("e1").innerText = " ";
+      }
+      else
+      {
+          console.log("3");
+          document.getElementById("e1").style.color = "red";
+          document.getElementById("e1").innerText = "Incorrect Email Id ";
+      }
+    }
+  </script>
+
+
+
 </head>
 <body>
 
-<div class="leaderboard">
+<div>
     <header>
-      <h1 class="">Formula Won</h1>
-      <img id="devvie" src="{{ url_for('media', path='/Devvie-checkered-flag.jpeg') }}" alt="">
-
     </header>
 
    
 
     {{ data|safe }}
 </div>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="index.js"></script>
 </body>
 </html>

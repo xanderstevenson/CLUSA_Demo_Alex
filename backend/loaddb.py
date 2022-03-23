@@ -10,7 +10,7 @@ DB_CONNECT_URL = os.getenv('DATABASE_URL')        # Raspberry Pi 3 from Pis clus
 LOCAL_FILE_URL_PREFIX = 'http://localhost:8000/static/'
 
 client = MongoClient(DB_CONNECT_URL)
-database = client.DemoQuestion 
+database = client.DemoQuestion
 
 # Read all meta data for data models
 META = './questions/meta.json'

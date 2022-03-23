@@ -1,10 +1,15 @@
-# Fastening light Python Framework for API build
-fastapi == 0.68.1
-# Fast ASGI server implementation which helps in the interaction between your application and the backend 
-uvicorn == 0.15.0
-# Motor is a full-featured, non-blocking IO MongoDB driver for Python 
-motor == 2.4.0
-# Others 
-Jinja2==3.0.3
-python-multipart==0.0.5
 aiofiles==0.8.0
+asgiref==3.5.0
+click==8.0.4
+fastapi==0.68.1
+h11==0.13.0
+Jinja2==3.0.3
+MarkupSafe==2.1.1
+motor==2.4.0
+pydantic==1.9.0
+pymongo==3.12.3
+python-multipart==0.0.5
+six==1.16.0
+starlette==0.14.2
+typing_extensions==4.1.1
+uvicorn==0.15.0
