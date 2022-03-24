@@ -1,9 +1,13 @@
-
-from urllib import response
+from fastapi import Request
 from fastapi import FastAPI, HTTPException
 from fastapi import status as statuscode
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 from model import DemoQuestion, User, Car
+import httpx
+import pandas as pd
+import asyncio
+import json
 
 from database import (
     fetch_one_question,
@@ -13,6 +17,8 @@ from database import (
     start_the_challenge,
     fetch_all_cars,
     end_the_challenge,
+    fetch_leaderboard_users,
+    get_car_payload,
 )
 
 from fastapi.middleware.cors import CORSMiddleware
@@ -32,10 +38,10 @@ app.add_middleware(
 )
 
 # Added to create path to static files for all question images
-app.mount("/static", StaticFiles(directory="questions"),name="static")
+app.mount("/static", StaticFiles(directory="data/questions"),name="static")
 
 @app.get("/")
-async def read_root():
+async def hello_world():
     return {"Hello": "World"}
 
 # Maximum number of questions fetch from all questions in the DB, 0 will fetch all.
@@ -46,7 +52,7 @@ async def get_many_questions():
     response = await fetch_many_questions(MAX_NUMBER_OF_QUESTIONS)
     return response
 
-@app.get("/questions/{id}}", response_model=DemoQuestion)
+@app.get("/question/{id}}", response_model=DemoQuestion)
 async def get_question_by_id(id):
     response = await fetch_one_question(id)
     if response:
@@ -92,3 +98,41 @@ async def end_challenge(userid: str):
     if response:
         return response
     raise HTTPException(404, f"Can't signal end of challenge for user {userid}")
+
+# Send command to make the car move forward or backward using payload
+async def send_command_to_car(car_url: str, payload: str):
+    print('sending post command ->',car_url)
+    data = json.loads(payload)
+    print('with payload',data)
+    async with httpx.AsyncClient() as client:
+        await client.post(car_url,data=data)
+
+@app.put("/score",
+        description="Actions taken after user answer a question correctly or incorrectly")
+async def score_a_question(user_id: str, weight: int):
+    ''' If user answers the question correctly, send weight as positive number
+        otherwise, send weight as negative number.
+    ''' 
+    (car_url,payload) = await get_car_payload(user_id,weight)
+    if (payload is not None):
+        response = await send_command_to_car(car_url,payload)
+    if response:
+        return response
+    raise HTTPException(404, f"Can't send command to car for user {user_id}")
+
+# Migrate code from Leaderboard project here for now. This should be done in ReactJS as a
+# frontend component.        
+templates = Jinja2Templates(directory="data")
+app.mount("/template", StaticFiles(directory="data"),name="template")
+    
+@app.get('/leaders',
+         description="Get users who completed challege with time recorded")
+async def get_users(request: Request):
+    response = await fetch_leaderboard_users()
+    response.sort(key=lambda x: x.timetaken)
+    users_dict = []
+    for x in response: 
+        if x.timetaken > 0:
+            users_dict.append(x.__dict__)
+    df = pd.DataFrame(users_dict)
+    return templates.TemplateResponse('leaders.html', context={'request': request, 'data': df.to_html()})

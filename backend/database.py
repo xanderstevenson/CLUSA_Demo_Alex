@@ -1,11 +1,10 @@
 import motor.motor_asyncio
 import os, random
-from utils import get_time, get_uuid
 from model import DemoQuestion, User, Car
+from utils import get_time, get_uuid
 
 # export DATABASE_URL = 'mongodb://devnet:ciscopsdt@10.194.239.243:27017/'
 DB_CONNECT_URL = os.getenv('DATABASE_URL')
-
 client = motor.motor_asyncio.AsyncIOMotorClient(DB_CONNECT_URL)
 database = client.DemoQuestion
 
@@ -86,11 +85,38 @@ async def end_the_challenge(userid: str):
     if( document ):
         timetaken = epoch - document['start']
         car_number = document['number']
+        document['position'] = 0
         # Record time taken for user
         await update_user_time(userid, timetaken)
         # Clear car data, return car to available pool
         [document.pop(key) for key in { "_id","userid", "start"}]
         await collection.replace_one(filter,document)
-        document = await collection.find_one({'number': car_number})
-                                             
+        document = await collection.find_one({'number': car_number})                                         
     return document
+
+async def fetch_leaderboard_users():
+    collection = database.user
+    users= []
+    cursor = collection.find({})
+    async for document in cursor:
+        users.append(User(**document))
+    return users
+
+async def get_car_payload(user_id: str,weight: int):
+    collection = database.car
+    filter = { 'userid': user_id }
+    document = await collection.find_one(filter)
+    car_url = None
+    payload = None
+    if document:
+        current_position = document['position']
+        new_position = current_position + weight
+        car_url = 'http://%s' % document['ip']
+        print(f'current = {current_position}, new = {new_position}')
+        if ( new_position >= 0 ):   # Don't want car to fall off cliff
+            direction = 'forward' if (weight > 0) else 'backward'
+            payload = '{"speed": %s,"weight": %s, "direction": "%s"}' % (document['speed'], abs(weight), direction)
+            await collection.update_one(filter, {"$set": {"position": new_position}})
+
+    return (car_url,payload)
+        
