@@ -10,8 +10,7 @@ import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
-// import {AssignCar} from './components/AssignCar';
-import { delay } from './components/Delay';
+
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -19,16 +18,14 @@ var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/ba
 let index = 0
 
 
-
-
 // Initialize data object for user
 const initialData = Object.freeze({
-	email: "",
-	first: "",
-	last: "",
-	id: "",
-	number: null,
-	ip: "",
+	email: "UNK@UNK.com",
+	first: "UNK",
+	last: "UNK",
+	id: "UNK",
+	number: 0,
+	ip: "UNK",
 	position: 0,
 	start: null,
 	end: null,
@@ -59,12 +56,17 @@ const App = (props) => {
 	const imageHandler = ({imageHandler}, e) => {
 		if (index < questionList.length) {
 			// change button text variable to be plugged into buttonElement below
-
 			setImage(questionList[index].filename)
+			// set answer to display on QuestionPage
+			questionList.Answer = questionList[index].answer
+			// var questionObject = Object.getOwnPropertyNames(questionList[index])
+			// alert(questionObject)
 			index = index + 1
+
 		} else {
 			alert('Congratulation, you have completed the challenge!')
 		}
+		
 	}
 ///// handle form input
 	const handleChange = (event) => {
@@ -214,6 +216,7 @@ function AssignCar(id) {
 					end: respObj.end,
 					userid: respObj.userid
 				})
+
 			}
 			)
 			.catch((error) => {
@@ -226,13 +229,22 @@ function AssignCar(id) {
 					console.log(error);
 			}
 			})
+// used to alert - for testing and debugging only
+			let userInfo = 'Name: ' + data.first + data.last + '\n' 
+						+ 'Email: ' + data.email + '\n'
+						+ 'ID: ' + data.id + '\n'
+						+ 'Car : ' + data.number + '\n'
+						+ 'IP: ' + data.ip + '\n'
+			alert(userInfo)
 	}
+
+
 const HoldingPage = () => {
 	setImage("./lambo_speedometer.gif")
 	return (
 	<center>
 		<div>
-		<h1>Welcome{' ' + data.first}, You may proceed to the Starting Line.</h1>
+		<h2 id='welcomeText'>Welcome{' ' + data.first}, please proceed to the Starting Line!</h2>
 		<button onClick={() => AssignCar(data.id)} className="mainButton"><Link to="/start-page">Go to Start</Link></button>
 		</div>
 	</center>
@@ -247,11 +259,7 @@ function StartPage() {
 	return (
 		<div>
 		<center>
-		<p>Name: {data.first} {data.last}</p>
-		<p>Email: {data.email}</p>
-		<p>ID # {data.id} </p>
-		<p>Car # {data.number}</p>
-		<p>IP Address : {data.ip}</p>
+		<h2 id='welcomeText'> You are Assigned Car #{data.number}</h2>
 		<button  onClick={imageHandler} className="mainButton"><Link to="/race">Race!</Link></button>
 		</center>
 		</div>
@@ -262,31 +270,32 @@ function StartPage() {
 
 // function to make api call to /score
 
+
+var answerText = 'Wrong'
+
+
+
 function QuestionPage() {
 return (
 	<div>
 		<center>
-			<button className="mainButton" onClick={imageHandler}>next</button>
-			<a class='btn2'>A</a>
-			<a class='btn2'>B</a>
-			<a class='btn2'>C</a>
-			<a class='btn2'>D</a>
+			<button className="mainButton" onClick={imageHandler}>{answerText}</button>
+			<a href='' class='btn2'>A</a>
+			<a href='' class='btn2'>B</a>
+			<a href='' class='btn2'>C</a>
+			<a href='' class='btn2'>D</a>
+			<p>Answer={questionList.Answer}</p>
 		</center>
 	</div>
 );
 }
-
-
-
-
-
 
 QuestionPage()
 // main biolerplate HTML for all pages
 return (
 	<div className="page">
 		<div className="container">
-			<center><img id='devDash' src='./DevDash.png'></img></center>
+			<center><img id='devDash' src='./DevDash.png' alt='DevDash logo'></img></center>
 			{/* <p className="heading">Cisco Dev Dash</p> */}
 			<div className="img-holder">
 				<img src={question} alt="" id="img" className="img" />

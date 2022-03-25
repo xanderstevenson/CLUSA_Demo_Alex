@@ -17,7 +17,7 @@
   width: 800px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.5);
-  box-shadow: -2px 2px 25px #711A75, 2px 2px 25px #711A75;
+  box-shadow: -2px 2px 10px #711A75, 2px 2px 10px #711A75;
   border: 1px gray solid;
 }
 
@@ -38,6 +38,7 @@
   border-radius: 5px;
   margin-top: 1rem;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 4px 3px 4px rgb(117, 106, 122), -4px 3px 4px rgb(117, 106, 122);
 }
 
 .img{
@@ -60,7 +61,7 @@
 	height: 30px;
   color: rgb(240, 230, 230);
   border-radius: 5px;
-  background-color: rgb(77, 73, 73);
+  background-color: teal;
   text-align: center;
   cursor: pointer;
   font-size: 20px;
@@ -68,7 +69,11 @@
 }
 
 .mainButton:hover{
-  background-color:green;
+  background-color:purple;
+}
+
+#submitButton {
+  margin-top: 0px;
 }
 
 a {
@@ -135,4 +140,12 @@ a {
     width: 250px;
     border: 1px ridge teal;
     box-shadow: 4px 3px 4px rgb(117, 106, 122), -4px 3px 4px rgb(117, 106, 122);
+  }
+
+  #welcomeText {
+    color: teal;
+    text-shadow: 1px 1px purple;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 28px;
   }
