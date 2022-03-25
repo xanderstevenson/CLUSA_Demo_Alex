@@ -59,11 +59,9 @@ const App = (props) => {
 	const imageHandler = ({imageHandler}, e) => {
 		if (index < questionList.length) {
 			// change button text variable to be plugged into buttonElement below
-			buttonText = 'Next Question'
+
 			setImage(questionList[index].filename)
 			index = index + 1
-			// change heading variable to be plugged into headingElement below
-			headingWords = 'Question #' + index
 		} else {
 			alert('Congratulation, you have completed the challenge!')
 		}
@@ -116,29 +114,18 @@ const App = (props) => {
 }
 // end of App() super function
 
-// Set the slide heading
-var headingWords = 'Cisco DevNet Dash!'
-// Set the button text
-var buttonText = 'Next!'
-// produce header element with variable from above
-var headingElement = <p className="heading">{headingWords}</p>
-// produce button text with variable from above
-var buttonElement = <button className="mainButton" onClick={imageHandler}>{buttonText}</button>
-// hardcoded user data for testing
-var carNumber = null
 
 // 5 functions to display five different pages
 	
 // Page 1
 // 	using imported module as function
+
 LandingPage()
 
 // Page 2
 const RegisterPage = () => {
-	headingWords = "Race Registration"
+
 	setImage('./cars-palmtrees.jpg')
-	
-	
 	return (
 
 // This is the form to collect user data
@@ -192,13 +179,9 @@ const RegisterPage = () => {
 // get car assignment
 
 function AssignCar(id) {
-
-
 	// get car assignment
 	var respObj
-	
 		var userId = id
-	
 		let allCarsURL = "http://127.0.0.1:8000/start"
 		// get request ot to api, no params required
 		axios.put(allCarsURL + "?userid=" + userId)
@@ -211,7 +194,6 @@ function AssignCar(id) {
 				respObj = {
 					number: 0,
 				}
-				
 				respObj.number = response.data["number"]
 				console.log('car number = ' + respObj.number)
 				respObj.ip = response.data["ip"]
@@ -245,73 +227,74 @@ function AssignCar(id) {
 			}
 			})
 	}
-	
-
-
 const HoldingPage = () => {
-headingWords = "Your Are Car #" + carNumber
-setImage("./lambo_speedometer.gif")
-
-return (
-<center>
-	<div>
-	<p>Name: {data.first} {data.last}</p>
-	<p>Email: {data.email}</p>
-	<p>ID # {data.id} </p>
-	<p>Car # {data.number}</p>
-	<p>IP Address : {data.ip}</p>
-
-	<button onClick={() => AssignCar(data.id)} className="mainButton">Get Car Assign</button>
-	<button className="mainButton"><Link to="/start-page">Go to Start</Link></button>
-	</div>
+	setImage("./lambo_speedometer.gif")
+	return (
+	<center>
+		<div>
+		<h1>Welcome{' ' + data.first}, You may proceed to the Starting Line.</h1>
+		<button onClick={() => AssignCar(data.id)} className="mainButton"><Link to="/start-page">Go to Start</Link></button>
+		</div>
 	</center>
-);
+	);
 }
+
+
 // page 4
-
-// StartPage()
-
-
-
-
 
 function StartPage() {
 	setImage("./starting-light.gif")
 	return (
 		<div>
 		<center>
+		<p>Name: {data.first} {data.last}</p>
+		<p>Email: {data.email}</p>
+		<p>ID # {data.id} </p>
 		<p>Car # {data.number}</p>
+		<p>IP Address : {data.ip}</p>
 		<button  onClick={imageHandler} className="mainButton"><Link to="/race">Race!</Link></button>
 		</center>
 		</div>
 	);
 }
 
-
-
 // page 5 - where questions are displayed / rotated
+
+// function to make api call to /score
+
 function QuestionPage() {
 return (
 	<div>
-	<center>
-		{buttonElement}
-	</center>
+		<center>
+			<button className="mainButton" onClick={imageHandler}>next</button>
+			<a class='btn2'>A</a>
+			<a class='btn2'>B</a>
+			<a class='btn2'>C</a>
+			<a class='btn2'>D</a>
+		</center>
 	</div>
 );
 }
+
+
+
+
+
+
 QuestionPage()
 // main biolerplate HTML for all pages
 return (
 	<div className="page">
 		<div className="container">
-			{headingElement}
+			<center><img id='devDash' src='./DevDash.png'></img></center>
+			{/* <p className="heading">Cisco Dev Dash</p> */}
 			<div className="img-holder">
 				<img src={question} alt="" id="img" className="img" />
 			</div>
 			<Router>
 				<Routes>
 					<Route exact path="/" element={<LandingPage />} />
-					<Route exact path="/register" element={<RegisterPage />} />
+					<Route exact path="/register" element={<RegisterPage/>} />
 					<Route path="/holding-page" element={<HoldingPage />} />
 					<Route path="/start-page" element={<StartPage imageHandler={imageHandler} />} />
 					<Route path="/race" element={<QuestionPage />} />

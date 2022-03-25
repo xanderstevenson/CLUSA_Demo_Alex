@@ -83,7 +83,7 @@ a {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
-  margin: -20px;
+  margin-top: -30px;
 }
 
 .titles {
@@ -94,3 +94,45 @@ a {
 .theForm {
   margin-top: -300px;
 }
+
+.btn2 {
+  width: 200px;
+  height: 75px;
+  padding: 5px 25px;
+  font-size: 28px;
+  text-align: center;
+  line-height: 75px;
+  color: rgba(255,255,255,0.9);
+  border-radius: 50px;
+  background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
+  background-size: 600%;
+  animation: anime 16s linear infinite;
+  box-shadow: 1px 1px purple;
+  margin: 10px;
+  /* z-index: -1; */
+  /* filter: blur(30px); */
+  opacity: 0.9;
+
+}
+
+@keyframes anime {
+  0% {
+    background-position: 0% 50%
+    }
+  50%
+    {
+    background-position: 100% 50%
+    }
+  100%
+    {
+  background-position: 0% 50%
+    }
+  }
+
+  #devDash {
+    text-align: center;
+    margin: 10px auto;
+    width: 250px;
+    border: 1px ridge teal;
+    box-shadow: 4px 3px 4px rgb(117, 106, 122), -4px 3px 4px rgb(117, 106, 122);
+  }
