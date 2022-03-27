@@ -59,8 +59,8 @@ const App = (props) => {
 			setImage(questionList[index].filename)
 			// set answer to display on QuestionPage
 			questionList.Answer = questionList[index].answer
-			// var questionObject = Object.getOwnPropertyNames(questionList[index])
-			// alert(questionObject)
+			questionList.answerStatus = ''
+			
 			index = index + 1
 
 		} else {
@@ -271,64 +271,42 @@ function StartPage() {
 // function to make api call to /score
 
 
-var answerText = 'Wrong'
-
-// function checkAnswer() {
-
-// }
 
 
 
-function QuestionPage(props) {
+function QuestionPage() {
+
+	var questionNum
+	var correctStatus = ''
+
+	if (index > 0){
+		questionNum = 'Question #' + index;
+	}
 
 	function handleChoice(choice) {
-		// let chooseFirst = document.getElementById('firstBTN').textContent;
-		// let chooseSecond = document.getElementById('secondBTN').textContent;
-		// let chooseThird = document.getElementById('thirdBTN').textContent;
-		// let chooseFourth = document.getElementById('fourthBTN').textContent;
-
-
-		// var choices = [chooseFirst, chooseSecond, chooseThird, chooseFourth]
-
-		// for(let i=0; i < 4; i++){
-		// 	if (choices[i].length > 0){
-		// 		console.log(choices[i])
-		// 	}
-		// }
-
-		// if (chooseFirst === questionList.Answer) {
-		// 	console.log(chooseFirst + ' is correct')
-		// }
-		// else if (chooseSecond === questionList.Answer) {
-		// 	console.log(chooseSecond + ' is correct')
-		// }
-		// else if (chooseThird === questionList.Answer) {
-		// 	console.log(chooseThird + ' is correct')
-		// }
-		// else if (chooseFourth === questionList.Answer) {
-		// 	console.log(chooseFourth + ' is correct')
-		// }
-		// else {
-		// 	console.log('WRONG')
-		// }
-
 		console.log('Your choice is ' + choice)
-
-
-
-
+		console.log('The answer is ' + questionList.Answer)
+		if (choice == questionList.Answer){
+			// imageHandler()
+			// onClick=(event) => imageHandler(event)
+		}
+		else {
+			alert('Wrong!') 
+		}
 	};
 
 
 return (
 	<div>
 		<center>
-			<button className="mainButton" onClick={imageHandler}>{answerText}</button>
+
 			<button href='' class='btnChoices' id='firstBTN' onClick={(event) => handleChoice('A')}>A</button>
 			<button href='' class='btnChoices' id='secondBTN' onClick={(event) => handleChoice('B')}>B</button>
 			<button href='' class='btnChoices' id='thirdBTN' onClick={(event) => handleChoice('C')}>C</button>
 			<button href='' class='btnChoices' id='fourthBTN' onClick={(event) => handleChoice('D')}>D</button>
-			<p>Answer={questionList.Answer}</p>
+			<br></br>
+			<button id='pageAndAnswerDisplay' className="mainButton" onClick={imageHandler}>{questionNum}</button>
+			<p>The Answer is {questionList.Answer}</p>
 		</center>
 	</div>
 );

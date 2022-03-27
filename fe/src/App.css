@@ -36,8 +36,9 @@
   width: 747px;
   height: 420px;
   border-radius: 5px;
+  border: 0px;
   margin-top: 1rem;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  /* box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); */
   box-shadow: 4px 3px 4px rgb(117, 106, 122), -4px 3px 4px rgb(117, 106, 122);
 }
 
@@ -66,6 +67,8 @@
   cursor: pointer;
   font-size: 20px;
   text-decoration: none;
+  border: 1px outset teal;
+  box-shadow: 2px 2px 5px gray;
 }
 
 .mainButton:hover{
@@ -148,4 +151,10 @@ a {
     margin-top: 10px;
     font-weight: bold;
     font-size: 28px;
+  }
+
+  #pageAndAnswerDisplay {
+    float: left;
+    margin-top: -30px;
+
   }
