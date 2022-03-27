@@ -53,7 +53,7 @@ const App = (props) => {
 		}
 	}, []);
 // dislaying the questions
-	const imageHandler = ({imageHandler}, e) => {
+	const imageHandler = (e) => {
 		if (index < questionList.length) {
 			// change button text variable to be plugged into buttonElement below
 			setImage(questionList[index].filename)
@@ -274,7 +274,7 @@ function StartPage() {
 
 
 
-function QuestionPage() {
+function QuestionPage(props) {
 
 	var questionNum
 	var correctStatus = ''
@@ -287,7 +287,7 @@ function QuestionPage() {
 		console.log('Your choice is ' + choice)
 		console.log('The answer is ' + questionList.Answer)
 		if (choice == questionList.Answer){
-			// imageHandler()
+			imageHandler()
 			// onClick=(event) => imageHandler(event)
 		}
 		else {
