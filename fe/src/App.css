@@ -100,19 +100,19 @@ a {
   margin-top: -300px;
 }
 
-.btn2 {
-  width: 200px;
-  height: 75px;
-  padding: 5px 25px;
+.btnChoices {
+  width: 75px;
+  height:50px;
+  padding: 5px 5px;
   font-size: 28px;
   text-align: center;
-  line-height: 75px;
+  line-height: 25px;
   color: rgba(255,255,255,0.9);
   border-radius: 50px;
   background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
   background-size: 600%;
   animation: anime 16s linear infinite;
-  box-shadow: 1px 1px purple;
+  box-shadow: 1px 1px 5px purple;
   margin: 10px;
   /* z-index: -1; */
   /* filter: blur(30px); */

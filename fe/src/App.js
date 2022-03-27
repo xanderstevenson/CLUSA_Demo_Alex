@@ -273,17 +273,27 @@ function StartPage() {
 
 var answerText = 'Wrong'
 
+// function checkAnswer() {
+
+// }
 
 
-function QuestionPage() {
+
+function QuestionPage(props) {
+
+	const handleChoice = () => {
+		console.log('test');
+	  };
+
+
 return (
 	<div>
 		<center>
 			<button className="mainButton" onClick={imageHandler}>{answerText}</button>
-			<a href='' class='btn2'>A</a>
-			<a href='' class='btn2'>B</a>
-			<a href='' class='btn2'>C</a>
-			<a href='' class='btn2'>D</a>
+			<button href='' class='btnChoices' id='firstBTN' onClick={ handleChoice }>A</button>
+			<button href='' class='btnChoices' id='secondBTN'>B</button>
+			<button href='' class='btnChoices' id='thirdBTN'>C</button>
+			<button href='' class='btnChoices' id='fourthBTN'>D</button>
 			<p>Answer={questionList.Answer}</p>
 		</center>
 	</div>
