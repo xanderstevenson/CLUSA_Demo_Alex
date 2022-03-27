@@ -281,19 +281,53 @@ var answerText = 'Wrong'
 
 function QuestionPage(props) {
 
-	const handleChoice = () => {
-		console.log('test');
-	  };
+	function handleChoice(choice) {
+		// let chooseFirst = document.getElementById('firstBTN').textContent;
+		// let chooseSecond = document.getElementById('secondBTN').textContent;
+		// let chooseThird = document.getElementById('thirdBTN').textContent;
+		// let chooseFourth = document.getElementById('fourthBTN').textContent;
+
+
+		// var choices = [chooseFirst, chooseSecond, chooseThird, chooseFourth]
+
+		// for(let i=0; i < 4; i++){
+		// 	if (choices[i].length > 0){
+		// 		console.log(choices[i])
+		// 	}
+		// }
+
+		// if (chooseFirst === questionList.Answer) {
+		// 	console.log(chooseFirst + ' is correct')
+		// }
+		// else if (chooseSecond === questionList.Answer) {
+		// 	console.log(chooseSecond + ' is correct')
+		// }
+		// else if (chooseThird === questionList.Answer) {
+		// 	console.log(chooseThird + ' is correct')
+		// }
+		// else if (chooseFourth === questionList.Answer) {
+		// 	console.log(chooseFourth + ' is correct')
+		// }
+		// else {
+		// 	console.log('WRONG')
+		// }
+
+		console.log('Your choice is ' + choice)
+
+
+
+
+	};
 
 
 return (
 	<div>
 		<center>
 			<button className="mainButton" onClick={imageHandler}>{answerText}</button>
-			<button href='' class='btnChoices' id='firstBTN' onClick={ handleChoice }>A</button>
-			<button href='' class='btnChoices' id='secondBTN'>B</button>
-			<button href='' class='btnChoices' id='thirdBTN'>C</button>
-			<button href='' class='btnChoices' id='fourthBTN'>D</button>
+			<button href='' class='btnChoices' id='firstBTN' onClick={(event) => handleChoice('A')}>A</button>
+			<button href='' class='btnChoices' id='secondBTN' onClick={(event) => handleChoice('B')}>B</button>
+			<button href='' class='btnChoices' id='thirdBTN' onClick={(event) => handleChoice('C')}>C</button>
+			<button href='' class='btnChoices' id='fourthBTN' onClick={(event) => handleChoice('D')}>D</button>
 			<p>Answer={questionList.Answer}</p>
 		</center>
 	</div>

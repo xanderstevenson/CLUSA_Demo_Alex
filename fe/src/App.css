@@ -112,7 +112,7 @@ a {
   background: linear-gradient(-45deg, #FFA63D, #FF3D77, #338AFF, #3CF0C5);
   background-size: 600%;
   animation: anime 16s linear infinite;
-  box-shadow: 1px 1px 5px purple;
+  box-shadow: 1px 1px 5px rgb(59, 0, 59);
   margin: 10px;
   /* z-index: -1; */
   /* filter: blur(30px); */
