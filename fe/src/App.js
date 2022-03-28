@@ -125,6 +125,14 @@ const App = (props) => {
 LandingPage()
 
 // Page 2
+
+
+function RegisterUserAndAssignCar(e){
+	handleSubmit(e)
+	AssignCar(data.id)
+}
+
+
 const RegisterPage = () => {
 
 	setImage('./cars-palmtrees.jpg')
@@ -172,12 +180,12 @@ const RegisterPage = () => {
 			>
 		</input>
 		<br></br>
-		<button type="submit" id="submitButton" className="mainButton" onClick={(event) => handleSubmit(event)}><Link to="/holding-page">Register</Link></button>
+		<button type="submit" id="submitButton" className="mainButton" onClick={(event) => RegisterUserAndAssignCar(event)}><Link to="/start-page">Register</Link></button>
 	</form> 
 	</center>
 );
 }
-// page 3
+
 // get car assignment
 
 function AssignCar(id) {
@@ -239,23 +247,11 @@ function AssignCar(id) {
 	}
 
 
-const HoldingPage = () => {
-	setImage("./lambo_speedometer.gif")
-	return (
-	<center>
-		<div>
-		<h2 id='welcomeText'>Welcome{' ' + data.first}, please proceed to the Starting Line!</h2>
-		<button onClick={() => AssignCar(data.id)} className="mainButton"><Link to="/start-page">Go to Start</Link></button>
-		</div>
-	</center>
-	);
-}
-
-
-// page 4
+// page 3
 
 function StartPage() {
-	setImage("./starting-light.gif")
+	setImage("./lambo_speedometer.gif")
+	
 	return (
 		<div>
 		<center>
@@ -266,23 +262,16 @@ function StartPage() {
 	);
 }
 
-// page 5 - where questions are displayed / rotated
-
-// function to make api call to /score
-
-
-
+// page4 - where questions are displayed / rotated
 
 
 function QuestionPage(props) {
 
 	var questionNum
 	var correctStatus = ''
-
 	if (index > 0){
 		questionNum = 'Question #' + index;
 	}
-
 	function handleChoice(choice) {
 		console.log('Your choice is ' + choice)
 		console.log('The answer is ' + questionList.Answer)
@@ -321,8 +310,6 @@ function QuestionPage(props) {
 			alert('Wrong!') 
 		}
 	};
-
-
 return (
 	<div>
 		<center>
@@ -338,7 +325,6 @@ return (
 	</div>
 );
 }
-
 QuestionPage()
 // main biolerplate HTML for all pages
 return (
@@ -353,7 +339,6 @@ return (
 				<Routes>
 					<Route exact path="/" element={<LandingPage />} />
 					<Route exact path="/register" element={<RegisterPage/>} />
-					<Route path="/holding-page" element={<HoldingPage />} />
 					<Route path="/start-page" element={<StartPage imageHandler={imageHandler} />} />
 					<Route path="/race" element={<QuestionPage />} />
 				</Routes>
