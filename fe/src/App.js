@@ -20,9 +20,9 @@ let index = 0
 
 // Initialize data object for user
 const initialData = Object.freeze({
-	email: "UNK@UNK.com",
-	first: "UNK",
-	last: "UNK",
+	email: "",
+	first: "",
+	last: "",
 	id: "UNK",
 	number: 0,
 	ip: "UNK",
@@ -235,7 +235,7 @@ function AssignCar(id) {
 						+ 'ID: ' + data.id + '\n'
 						+ 'Car : ' + data.number + '\n'
 						+ 'IP: ' + data.ip + '\n'
-			alert(userInfo)
+			console.log(userInfo)
 	}
 
 
@@ -287,10 +287,37 @@ function QuestionPage(props) {
 		console.log('Your choice is ' + choice)
 		console.log('The answer is ' + questionList.Answer)
 		if (choice == questionList.Answer){
+			// make API call to move car position forward
+			axios.put('http://127.0.0.1:8000/score?user_id=' + data.id + '&weight=1')
+				.then((response) => {
+				})
+				.catch((error) => {
+					if (error.resp) {
+						console.log(error.response);
+						console.log("server responded");
+					} else if (error.request) {
+						console.log("network error");
+					} else {
+						console.log(error);
+				}
+				})
+		    // load next question
 			imageHandler()
-			// onClick=(event) => imageHandler(event)
 		}
 		else {
+			axios.put('http://127.0.0.1:8000/score?user_id=' + data.id + '&weight=-1')
+				.then((response) => {
+				})
+				.catch((error) => {
+					if (error.resp) {
+						console.log(error.response);
+						console.log("server responded");
+					} else if (error.request) {
+						console.log("network error");
+					} else {
+						console.log(error);
+				}
+				})
 			alert('Wrong!') 
 		}
 	};
