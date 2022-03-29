@@ -10,12 +10,14 @@ import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
+// import {startTimer} from './components/Timer';
 
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
-let index = 0
+var index = 0
+
 
 
 // Initialize data object for user
@@ -60,11 +62,11 @@ const App = (props) => {
 			// set answer to display on QuestionPage
 			questionList.Answer = questionList[index].answer
 			questionList.answerStatus = ''
-			
 			index = index + 1
 
 		} else {
 			alert('Congratulation, you have completed the challenge!')
+			alert('Start time: ' + data.start)
 		}
 		
 	}
@@ -117,25 +119,25 @@ const App = (props) => {
 // end of App() super function
 
 
-// 5 functions to display five different pages
+// 4 functions to display five different pages
 	
 // Page 1
 // 	using imported module as function
-
 LandingPage()
 
 // Page 2
 
-
+// compbo function combining register of user and assigning of car
 function RegisterUserAndAssignCar(e){
 	handleSubmit(e)
 	AssignCar(data.id)
+	// startTimer()
 }
 
 
 const RegisterPage = () => {
-
 	setImage('./cars-palmtrees.jpg')
+
 	return (
 
 // This is the form to collect user data
@@ -249,14 +251,57 @@ function AssignCar(id) {
 
 // page 3
 
+function startTimer(){
+	const timer = document.getElementById('timer');
+	let timerInterval;
+	// Firs twe start by clearing the existing timer, in case of a restart
+	clearInterval(timerInterval);
+	// Then we clear the variables
+	let second = 0,
+	  minute = 0
+
+  
+	// Next we set a interval every 1000 ms
+	timerInterval = setInterval(function () {
+	  // Toggle the odd class every interval
+	//   timer.classList.toggle('odd');
+  
+	  // We set the timer text to include a two digit representation
+	  timer.innerHTML =
+
+		(minute < 10 ? '0' + minute : minute) +
+		':' +
+		(second < 10 ? '0' + second : second);
+  
+	  // Next, we add a new second since one second is passed
+	  second++;
+  
+	  // We check if the second equals 60 "one minute"
+	  if (second === 60) {
+		// If so, we add a minute and reset our seconds to 0
+		minute++;
+		second = 0;
+	  }
+  
+	}, 1000);
+  };
+
+  
+
+
+const LoadFirstQuestionAndStartTimer = () => {
+	imageHandler()
+	startTimer()
+}
+
 function StartPage() {
 	setImage("./lambo_speedometer.gif")
-	
+
 	return (
 		<div>
 		<center>
-		<h2 id='welcomeText'> You are Assigned Car #{data.number}</h2>
-		<button  onClick={imageHandler} className="mainButton"><Link to="/race">Race!</Link></button>
+		<h2 id='welcomeText'>{data.first}, you are Assigned Car #{data.number}</h2>
+		<button  onClick={LoadFirstQuestionAndStartTimer} className="mainButton"><Link to="/race">Race!</Link></button>
 		</center>
 		</div>
 	);
@@ -265,17 +310,14 @@ function StartPage() {
 // page4 - where questions are displayed / rotated
 
 
-function QuestionPage(props) {
 
-	var questionNum
-	var correctStatus = ''
-	if (index > 0){
-		questionNum = 'Question #' + index;
-	}
+
+function QuestionPage() {
+	
 	function handleChoice(choice) {
 		console.log('Your choice is ' + choice)
 		console.log('The answer is ' + questionList.Answer)
-		if (choice == questionList.Answer){
+		if (choice === questionList.Answer){
 			// make API call to move car position forward
 			axios.put('http://127.0.0.1:8000/score?user_id=' + data.id + '&weight=1')
 				.then((response) => {
@@ -313,13 +355,12 @@ function QuestionPage(props) {
 return (
 	<div>
 		<center>
-
 			<button href='' class='btnChoices' id='firstBTN' onClick={(event) => handleChoice('A')}>A</button>
 			<button href='' class='btnChoices' id='secondBTN' onClick={(event) => handleChoice('B')}>B</button>
 			<button href='' class='btnChoices' id='thirdBTN' onClick={(event) => handleChoice('C')}>C</button>
 			<button href='' class='btnChoices' id='fourthBTN' onClick={(event) => handleChoice('D')}>D</button>
 			<br></br>
-			<button id='pageAndAnswerDisplay' className="mainButton" onClick={imageHandler}>{questionNum}</button>
+			<button id='pageAndAnswerDisplay' className="mainButton" onClick={imageHandler}>Question #{index}</button>
 			<p>The Answer is {questionList.Answer}</p>
 		</center>
 	</div>
@@ -327,6 +368,7 @@ return (
 }
 QuestionPage()
 // main biolerplate HTML for all pages
+
 return (
 	<div className="page">
 		<div className="container">
@@ -343,6 +385,8 @@ return (
 					<Route path="/race" element={<QuestionPage />} />
 				</Routes>
 			</Router>
+			
+			<button onClick={startTimer} id='timer' className='mainButton'>00:00</button>
 		</div>
 	</div>
 	)
