@@ -12,12 +12,12 @@ import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
 // import {startTimer} from './components/Timer';
 
-
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
 // Index to the current question
 var index = 0
 
+var timerButton
 
 
 // Initialize data object for user
@@ -61,7 +61,7 @@ const App = (props) => {
 			setImage(questionList[index].filename)
 			// set answer to display on QuestionPage
 			questionList.Answer = questionList[index].answer
-			questionList.answerStatus = ''
+		
 			index = index + 1
 
 		} else {
@@ -131,7 +131,6 @@ LandingPage()
 function RegisterUserAndAssignCar(e){
 	handleSubmit(e)
 	AssignCar(data.id)
-	// startTimer()
 }
 
 
@@ -143,11 +142,12 @@ const RegisterPage = () => {
 // This is the form to collect user data
 	<center>
 	<form name='form'>
-	<label htmlFor="fname">First Name: </label>
+	<label htmlFor="fname"></label>
 		<input 
+			className='registerInput'
 			type="text" 
 			name="first" 
-			placeholder="Enter first name"
+			placeholder="Enter First Name"
 			// required
 			value={data.first}
 			onChange={handleChange}
@@ -157,24 +157,26 @@ const RegisterPage = () => {
 			>
 			</input>
 		<br></br>
-		<label>Last Name: </label>
+		<label></label>
 		<input 
+			className='registerInput'
 			type="text" 
 			name="last" 
 			value={data.last}
-			placeholder="Enter last name" 
+			placeholder="Enter Last Name" 
 		//   required
 			onChange={handleChange}
 			id="lname" 
 			>
 		</input>
 		<br></br>
-		<label>Email Addr: </label>
+		<label></label>
 		<input 
+			className='registerInput'
 			type="email" 
 			name="email" 
 			value={data.email}
-			placeholder="Enter email" 
+			placeholder="Enter Email" 
 		//   required
 			onChange={handleChange}
 			id="emailId"  
@@ -252,6 +254,7 @@ function AssignCar(id) {
 // page 3
 
 function startTimer(){
+	
 	const timer = document.getElementById('timer');
 	let timerInterval;
 	// Firs twe start by clearing the existing timer, in case of a restart
@@ -296,7 +299,7 @@ const LoadFirstQuestionAndStartTimer = () => {
 
 function StartPage() {
 	setImage("./lambo_speedometer.gif")
-
+	timerButton = <button id='timer' className='mainButton'>00:00</button>
 	return (
 		<div>
 		<center>
@@ -352,6 +355,7 @@ function QuestionPage() {
 			alert('Wrong!') 
 		}
 	};
+	// timerButton = <button id='timer' className='mainButton'>00:00</button>
 return (
 	<div>
 		<center>
@@ -386,7 +390,8 @@ return (
 				</Routes>
 			</Router>
 			
-			<button onClick={startTimer} id='timer' className='mainButton'>00:00</button>
+			{/* <button id='timer' className='mainButton'>00:00</button> */}
+			{timerButton}
 		</div>
 	</div>
 	)

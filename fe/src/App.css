@@ -61,14 +61,14 @@
   width: 150px;
 	height: 30px;
   color: rgb(240, 230, 230);
-  border-radius: 5px;
+  border-radius: 3px;
   background-color: teal;
   text-align: center;
   cursor: pointer;
   font-size: 20px;
   text-decoration: none;
-  border: 1px outset teal;
-  box-shadow: 2px 2px 5px gray;
+  border: 1px solid teal;
+  box-shadow: 2px 2px 2px gray, -2px 2px 2px gray;
 }
 
 .mainButton:hover{
@@ -76,7 +76,7 @@
 }
 
 #submitButton {
-  margin-top: 0px;
+  margin-top: 3px;
 }
 
 a {
@@ -166,4 +166,16 @@ a {
 
   #letsRegister {
     margin-top: 30px;
+    border: 1px solid teal;
+    box-shadow: 2px 2px 4px gray, -2px 2px 4px gray;
+  }
+
+  .registerInput {
+    width: 130px;
+    margin-left: 25px;
+    text-align: center;
+    background-color: whitesmoke;
+    border: none;
+    box-shadow: 2px 2px 5px gray, -2px 2px 5px gray;
+    border: 1px ridge silver;
   }
