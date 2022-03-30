@@ -10,7 +10,7 @@ import axios from 'axios';
 import './App.css';
 import {objectToQueryString} from './components/UserAdd';
 import {LandingPage} from './components/LandingPage';
-// import {startTimer} from './components/Timer';
+import {Register} from './components/RegisterPage';
 
 // Set initial image on screen
 var url = 'https://github.com/xanderstevenson/CLUSA_Demo_Alex/blob/alex_local/backend/media/Devvie-checkered-flag.jpeg?raw=true'
@@ -34,7 +34,7 @@ const initialData = Object.freeze({
 	userid: null
   });
 // main super function
-const App = (props) => {
+const App = () => {
 // State for images
 	var [question,setImage] = useState(url)
 // State for question
@@ -72,9 +72,12 @@ const App = (props) => {
 	}
 ///// handle form input
 	const handleChange = (event) => {
+		// const {name, value } = event.target;
+		// const val = value;
 	setData({
 		...data,
-		[event.target.name]: event.target.value.trim()
+		// [name]: val
+		[event.target.name]: event.target.value.trim(),
 	});
 	}
 /// handle form submission
@@ -134,59 +137,62 @@ function RegisterUserAndAssignCar(e){
 }
 
 
-const RegisterPage = () => {
+function RegisterPage(){
 	setImage('./cars-palmtrees.jpg')
 
 	return (
 
+     {Register}
+
 // This is the form to collect user data
-	<center>
-	<form name='form'>
-	<label htmlFor="fname"></label>
-		<input 
-			className='registerInput'
-			type="text" 
-			name="first" 
-			placeholder="Enter First Name"
-			// required
-			value={data.first}
-			onChange={handleChange}
-			id="fname"
-			maxLength='25'
-			minLength='1'
-			>
-			</input>
-		<br></br>
-		<label></label>
-		<input 
-			className='registerInput'
-			type="text" 
-			name="last" 
-			value={data.last}
-			placeholder="Enter Last Name" 
-		//   required
-			onChange={handleChange}
-			id="lname" 
-			>
-		</input>
-		<br></br>
-		<label></label>
-		<input 
-			className='registerInput'
-			type="email" 
-			name="email" 
-			value={data.email}
-			placeholder="Enter Email" 
-		//   required
-			onChange={handleChange}
-			id="emailId"  
-		//   onKeyUp="emailValidate()" 
-			>
-		</input>
-		<br></br>
-		<button type="submit" id="submitButton" className="mainButton" onClick={(event) => RegisterUserAndAssignCar(event)}><Link to="/start-page">Register</Link></button>
-	</form> 
-	</center>
+	// <center>
+
+	// <form name='form'>
+	// <label htmlFor="fname"></label>
+	// 	<input 
+	// 		className='registerInput'
+	// 		type="text" 
+	// 		name="first" 
+	// 		placeholder="Enter First Name"
+	// 		// required
+	// 		value={data.first}
+	// 		onChange={handleChange}
+	// 		id="fname"
+	// 		maxLength='25'
+	// 		minLength='1'
+	// 		>
+	// 		</input>
+	// 	<br></br>
+	// 	<label></label>
+	// 	<input 
+	// 		className='registerInput'
+	// 		type="text" 
+	// 		name="last" 
+	// 		value={data.last}
+	// 		placeholder="Enter Last Name" 
+	// 	//   required
+	// 		onChange={handleChange}
+	// 		id="lname" 
+	// 		>
+	// 	</input>
+	// 	<br></br>
+	// 	<label></label>
+	// 	<input 
+	// 		className='registerInput'
+	// 		type="email" 
+	// 		name="email" 
+	// 		value={data.email}
+	// 		placeholder="Enter Email" 
+	// 	//   required
+	// 		onChange={handleChange}
+	// 		id="emailId"  
+	// 	//   onKeyUp="emailValidate()" 
+	// 		>
+	// 	</input>
+	// 	<br></br>
+	// 	<button type="submit" id="submitButton" className="mainButton" onClick={(event) => RegisterUserAndAssignCar(event)}><Link to="/start-page">Register</Link></button>
+	// </form> 
+	// </center>
 );
 }
 
